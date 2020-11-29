@@ -6,7 +6,7 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 15:54:28 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/11/28 23:21:05 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/11/29 19:13:58 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,21 @@ static void ft_promt(int s) {
 	s = 0;
 }
 
+#include <wchar.h>
+
+void	ft_print_promt() {
+	ft_printf("$> ");
+	// char *promt;
+
+	// promt = ft_chrtoa_ostssrk(U+1F60F);
+	// promt = ft_chrtoa_ostssrk((unsigned int)('\u1F60F'));
+	// ft_printf("%s\n", promt);
+	// ft_printf("U+1F60F");
+	// printf("%lc", '\u1F60F');
+}
+
 int main(int argc, char **argv, char **env) {
-	ft_printf("\033[?1049h\033[H");
+	// ft_printf("\033[?1049h\033[H");
 	int is_exit;
 	char *input;
 	char **semicolon_input;
@@ -29,7 +42,7 @@ int main(int argc, char **argv, char **env) {
 	ft_set_origin_env(&myenv, env);
 	is_exit = 0;
 	while (!is_exit) {
-		ft_printf("$> ");
+		ft_print_promt();
 		// if (signal(SIGINT, ft_promt) == SIG_ERR)
 			// is_exit = 1;
 		input = ft_read_input();
@@ -48,6 +61,6 @@ int main(int argc, char **argv, char **env) {
 		// ft_strdel(semicolon_input);
 		// ft_strdel(&input);
 	}
-	ft_printf("\033[?1049l");
+	// ft_printf("\033[?1049l");
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 15:54:39 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/11/28 23:02:41 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/11/29 19:55:16 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ char *ft_remove_quotes(char *str);
 void	ft_list_add(t_env **head, char *name, char *content);
 t_env		*ft_find_in_list(t_env *env, char *name);
 void	ft_list_delete_element_name(t_env **head, char *name);
+int		ft_find_list_len(t_env *head);
 
 /*
 ** builtins.c
@@ -77,3 +78,33 @@ void	ft_do_echo(char **command_parts, t_env *env);
 char *ft_find_var(char *str, t_env *env);
 void	ft_do_clear();
 void	ft_do_help();
+
+/*
+** cd.c
+*/
+
+void	ft_change_or_create_var(t_env **env, char *var_name, char *content);
+void	ft_do_cd(char **command_parts, t_env **env);
+
+/*
+** manage_path.c
+*/
+
+char	*ft_strconcat(char *s1, char *s2);
+char *ft_create_str_from_split(char **arr, char c);
+char *ft_path_step_back(char *old_path);
+int	ft_arrlen(char **arr);
+char	*ft_strconcat_delim(char *s1, char *s2, char *delim);
+void	ft_print_arr(char **arr);
+
+/*
+** promt.c
+*/
+
+char		*ft_chrtoa_ostssrk(unsigned int chr);
+
+/*
+** process.c
+*/
+
+void	ft_do_process(char **command_parts, t_env **env);

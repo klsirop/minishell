@@ -6,7 +6,7 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 18:47:12 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/11/28 22:51:18 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/11/29 19:44:58 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,19 @@ void	ft_list_delete_element_name(t_env **head, char *name)
 		tmp = tmp->next;
 	}
 
+}
+
+int		ft_find_list_len(t_env *head)
+{
+	t_env	*tmp;
+	int		len;
+
+	len = 0;
+	tmp = head;
+	while (tmp)
+	{
+		len++;
+		tmp = tmp->next;
+	}
+	return (len);
 }

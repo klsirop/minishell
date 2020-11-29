@@ -6,7 +6,7 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 18:01:33 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/11/28 22:48:50 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/11/29 16:17:39 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,11 @@ void	ft_print_env(t_env *myenv) {
 	}
 }
 
+/*
+** remove " at the begin of str
+** remove " at the end of str
+** if they exists
+*/
 char *ft_remove_quotes(char *str) {
 	int new_len;
 	char *new_str;
@@ -66,39 +71,14 @@ char *ft_remove_quotes(char *str) {
 	return new_str;
 }
 
-char *ft_create_str_from_split(char **arr) {
-	int len;
-	int i;
-	char *str;
-	int j;
-	int k;
-
-	len = 0;
-	i = 0;
-	while (arr[i] != NULL) {
-		len += ft_strlen(arr[i]);
-		i++;
-	}
-	str = (char *)malloc(sizeof(char) * (len + i + 1));
-	i = 0;
-	k = 0;
-	while (arr[i] != NULL) {
-		j = 0;
-		while (arr[i][j] != '\0') {
-			str[k] = arr[i][j];
-			j++;
-			k++;
-		}
-		i++;
-		if (arr[i] != NULL) {
-			str[k] = ':';
-			k++;
-		}
-	}
-	str[k] = '\0';
-	return str;
-}
-
+/*
+** take a VAL from VAR=VAL
+** VAL can be /volyvar-:$PATH:$PWDddd
+** this func substitute variables and VAL will be:
+** /volyvar-:/bin:
+** PS.	$PWDddd - is unvalid. replace by ""
+**	  	VAL shouldn't have any : 
+*/
 char *ft_substitution(char *str, t_env *env) {
 	char *new_str;
 	char **parts;
@@ -127,7 +107,7 @@ char *ft_substitution(char *str, t_env *env) {
 			}
 			i++;
 		}
-		new_str = ft_create_str_from_split(parts);
+		new_str = ft_create_str_from_split(parts, ':');
 		ft_free_after_split(parts);
 		ft_strdel(parts);
 		return new_str;
@@ -147,13 +127,7 @@ void	ft_do_setenv(char **command_parts, t_env **env) {
 	}
 	contant_no_quotes = ft_remove_quotes(command_parts[2]);
 	after_substitution = ft_substitution(command_parts[2], *env);
-	is_exists = ft_find_in_list(*env, command_parts[1]);
-	if (is_exists == NULL)
-		ft_list_add(env, command_parts[1], after_substitution);
-	else {
-		ft_strdel(&is_exists->content);
-		is_exists->content = ft_strdup(after_substitution);
-	}
+	ft_change_or_create_var(env, command_parts[1], after_substitution);
 	ft_strdel(&after_substitution);
 	ft_strdel(&contant_no_quotes);
 }
