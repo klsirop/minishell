@@ -6,7 +6,7 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 15:54:28 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/11/29 19:13:58 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/11/29 20:46:23 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,15 @@ int main(int argc, char **argv, char **env) {
 	is_exit = 0;
 	while (!is_exit) {
 		ft_print_promt();
+		// ft_printf("start\n");
 		// if (signal(SIGINT, ft_promt) == SIG_ERR)
 			// is_exit = 1;
 		input = ft_read_input();
-		// ft_printf("input: %s\n", input);
-		if (!(semicolon_input = ft_strsplit(input, ';')))
+			
+		if (input && !(semicolon_input = ft_strsplit(input, ';')))
 			ft_error();
 		i = 0;
-		while (semicolon_input[i] != NULL) {
+		while (input && semicolon_input[i] != NULL) {
 			// ft_printf("do: %s\n", semicolon_input[i]);
 			ft_do_command(semicolon_input[i], &myenv);
 			i++;

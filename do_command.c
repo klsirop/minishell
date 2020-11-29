@@ -6,7 +6,7 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 16:47:03 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/11/29 19:16:34 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/11/29 20:21:48 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ int ft_do_command(char *command, t_env **myenv) {
 	//
 	if (!command_parts)
 		return 0;
-	if (!ft_strcmp(command_parts[0], "echo"))
+	else if (!ft_strcmp(command_parts[0], "echo"))
 		ft_do_echo(command_parts, *myenv);
-	if (!ft_strcmp(command_parts[0], "env"))
+	else if (!ft_strcmp(command_parts[0], "env"))
 		ft_print_env(*myenv);
 	else if (!ft_strcmp(command_parts[0], "setenv"))
 		ft_do_setenv(command_parts, myenv);
