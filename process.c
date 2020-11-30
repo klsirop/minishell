@@ -6,7 +6,7 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/29 19:16:13 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/11/30 15:09:27 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/11/30 23:09:18 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char *ft_check_path_access(char *command, t_env *env) {
 	i = 0;
 	while (path_parts[i]) {
 		new_exe = ft_concat_path(path_parts[i], command);
-		if (!access(new_exe, 1)) {
+		if (!access(new_exe, 0)) {
 			ft_free_after_split(path_parts);
 			ft_strdel(path_parts);
 			return new_exe;
@@ -71,17 +71,28 @@ int	ft_do_process(char **command, t_env **env) {
 	}
 	else if (pid == 0) {
 		// execve(command[0], command, arr_env);
-		if (!access(command[0], 1)) {
-			if (execve(command[0], command, arr_env) == -1) {
-				ft_error();
+		if (!access(command[0], 0)) { //exists
+			if (!access(command[0], 1)) { //execute
+				execve(command[0], command, arr_env);
+				
+			} else {
+				ft_printf("minishell: permission denied: %s\n", command[0]);
 			}
+			exit(0);
+				// ft_error();
+			// }
 		} else {
 			new_exe = ft_check_path_access(command[0], *env);
 			if (new_exe) {
-				ft_strdel(&(command[0]));
-				command[0] = ft_strdup(new_exe);
-				ft_strdel(&new_exe);
-				execve(command[0], command, arr_env);
+				if (!access(new_exe, 1)) {
+					ft_strdel(&(command[0]));
+					command[0] = ft_strdup(new_exe);
+					ft_strdel(&new_exe);
+					execve(command[0], command, arr_env);
+				} else {
+					ft_printf("minishell: permission denied: %s\n", command[0]);
+				}
+				exit(0);
 			} else {
 				ft_printf("minishell: command not found: %s\n", command[0]);
 				// ft_free_after_split(arr_env);

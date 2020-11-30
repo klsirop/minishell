@@ -6,7 +6,7 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 18:01:33 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/11/30 22:43:36 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/11/30 22:50:50 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,10 +85,9 @@ char *ft_substitution(char *str, t_env *env) {
 	int i;
 	char *tmp;
 
-	ft_printf("ok0\n");
 	if (!str || !env)
 		return (NULL);
-	if (!ft_strchr(str, ':') && str[0] != '$') {
+	if (!ft_strchr(str, ':') && str[0] != '$' && str[0] != '~') {
 		new_str = ft_strdup(str);
 		return (new_str);
 	}
@@ -96,12 +95,10 @@ char *ft_substitution(char *str, t_env *env) {
 		new_str = ft_find_var(str, env);
 		return (new_str);
 	}
-	ft_printf("ok1\n");
-	if (ft_strchr(str, ':')) {
+	// if (ft_strchr(str, ':')) {
 		parts = ft_strsplit(str, ':');
 		i = 0;
 		while (parts[i] != NULL) {
-			ft_printf("part: %s\n", parts[i]);
 			if (parts[i][0] == '$') {
 				tmp = ft_find_var(parts[i], env);
 				ft_strdel(&(parts[i]));
@@ -109,12 +106,11 @@ char *ft_substitution(char *str, t_env *env) {
 				ft_strdel(&tmp);
 			} 
 			else if (parts[i][0] == '~') {
-				ft_printf("ok\n");
 				tmp = ft_strdup(ft_find_in_list(env, "HOME")->content);
-				new_str = ft_concat_path(tmp, parts[i] + 1);
+				new_str = ft_concat_path(tmp, parts[i] + 2);
 				ft_strdel(&(parts[i]));
 				ft_strdel(&tmp);
-				parts[i] = ft_strdup(tmp);
+				parts[i] = ft_strdup(new_str);
 				ft_strdel(&new_str);
 			}
 			i++;
@@ -123,9 +119,9 @@ char *ft_substitution(char *str, t_env *env) {
 		ft_free_after_split(parts);
 		ft_strdel(parts);
 		return new_str;
-	}
-	new_str = ft_strdup(str);
-	return (new_str);
+	// }
+	// new_str = ft_strdup(str);
+	// return (new_str);
 }
 
 void	ft_do_setenv(char **command_parts, t_env **env) {
