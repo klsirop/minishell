@@ -6,7 +6,7 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/29 16:08:02 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/11/29 19:53:25 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/11/30 14:31:58 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,4 +138,18 @@ char *ft_path_step_back(char *old_path) {
 	ft_free_after_split(piece_path);
 	ft_strdel(piece_path);
 	return (new_full_path);
+}
+
+char *ft_concat_path(char *s1, char *s2) {
+	char *path;
+	char *tmp;
+
+	if (!s1 || !s2)
+		return (NULL);
+	if (s1[ft_strlen(s1) - 1] == '/') {
+		path = ft_strconcat(s1, s2);
+	} else {
+		path = ft_strconcat_delim(s1, s2, "/");
+	}
+	return (path);
 }

@@ -6,7 +6,7 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 15:54:39 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/11/29 19:55:16 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/11/30 15:01:23 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ char *ft_path_step_back(char *old_path);
 int	ft_arrlen(char **arr);
 char	*ft_strconcat_delim(char *s1, char *s2, char *delim);
 void	ft_print_arr(char **arr);
+char *ft_concat_path(char *s1, char *s2);
 
 /*
 ** promt.c
@@ -107,4 +108,4 @@ char		*ft_chrtoa_ostssrk(unsigned int chr);
 ** process.c
 */
 
-void	ft_do_process(char **command_parts, t_env **env);
+int		ft_do_process(char **command_parts, t_env **env);

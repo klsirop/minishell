@@ -6,7 +6,7 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/29 13:59:35 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/11/29 19:53:33 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/11/30 15:33:00 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,52 @@ void	ft_change_or_create_var(t_env **env, char *var_name, char *content) {
 	}
 }
 
+// ~/Desktop
+// ../Desktop
+// ./libft
+
+// /*
+// ** old_pwd: /Users/volyvar/
+// ** new_pwd: .. . ~ name /name ~/name ./ ../ ./name/name   ../name/name
+// */
+// char *ft_get_full_new_pwd(char *old_pwd, char *new_pwd) {//////////////CHANGE THIS FUNC ->PARSE
+// 	char *full_pwd;
+// 	char *tmp;
+
+// 	if (!ft_strcmp(new_pwd, ".") || !ft_strcmp(new_pwd, "./")) {
+// 		full_pwd = ft_strdup(old_pwd);
+// 		return full_pwd;
+// 	}
+// 	if (!ft_strcmp(new_pwd, "..") || !ft_strcmp(new_pwd, "../")) {
+// 		full_pwd = ft_path_step_back(old_pwd);
+// 		return full_pwd;
+// 	}
+// 	if (new_pwd[0] == '/') {
+// 		full_pwd = ft_strdup(new_pwd);
+// 		return full_pwd;
+// 	}
+// 	if (new_pwd[0] != '/') {
+// 		if (old_pwd[ft_strlen(old_pwd) - 1] == '/')
+// 			return (ft_strconcat(old_pwd, new_pwd));
+// 		else
+// 			return (ft_strconcat_delim(old_pwd, new_pwd, "/"));
+// 	}
+// 	return NULL;
+// }
+
 /*
 ** old_pwd: /Users/volyvar/
-** new_pwd: .. . ~ name /name ~/name
+** new_pwd: .. . ~ name /name ~/name ./ ../ ./name/name   ../name/name
 */
-char *ft_get_full_new_pwd(char *old_pwd, char *new_pwd) {
+char *ft_get_full_new_pwd(char *old_pwd, char *new_pwd) {//////////////CHANGE THIS FUNC ->PARSE
 	char *full_pwd;
 	char *tmp;
 
-	if (!ft_strcmp(new_pwd, ".")) {
+	if (!ft_strcmp(new_pwd, ".") || !ft_strcmp(new_pwd, "./")) {
 		full_pwd = ft_strdup(old_pwd);
 		return full_pwd;
 	}
-	if (!ft_strcmp(new_pwd, "..")) {
+	if (!ft_strcmp(new_pwd, "..") || !ft_strcmp(new_pwd, "../")) {
 		full_pwd = ft_path_step_back(old_pwd);
 		return full_pwd;
 	}
@@ -103,7 +136,7 @@ void	ft_do_cd(char **command_parts, t_env **env) {
 		ft_go_to_home_dir(env);
 		return ;
 	}
-	if (command_parts[1] && command_parts[2] == NULL) {
+	if (command_parts[1] && command_parts[2] == NULL) { // ONE ARG
 		if (!ft_strcmp(command_parts[1], ".")) { //no need
 			return ;
 		}

@@ -6,7 +6,7 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 16:47:03 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/11/29 20:21:48 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/11/30 15:16:55 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int ft_do_command(char *command, t_env **myenv) {
 	char **command_parts;
+	int ret;
 
 	if (!(command_parts = ft_strsplit_sh(command, ' ', '\t')))
 		ft_error();
@@ -33,8 +34,13 @@ int ft_do_command(char *command, t_env **myenv) {
 		ft_print_env(*myenv);
 	else if (!ft_strcmp(command_parts[0], "setenv"))
 		ft_do_setenv(command_parts, myenv);
-	else if (!ft_strcmp(command_parts[0], "exit"))
-		exit(0);
+	else if (!ft_strcmp(command_parts[0], "exit")) {
+		if (command_parts[1] == NULL)
+			return (-1);
+		else
+			ft_printf("minishell: exit: too many arguments\n");
+		// exit(0);
+	}
 	else if (!ft_strcmp(command_parts[0], "clear"))
 		ft_do_clear();
 	else if (!ft_strcmp(command_parts[0], "unsetenv"))
@@ -43,8 +49,9 @@ int ft_do_command(char *command, t_env **myenv) {
 		ft_do_help();
 	else if (!ft_strcmp(command_parts[0], "cd"))
 		ft_do_cd(command_parts, myenv);
-	else
-		ft_do_process(command_parts, myenv);
+	else {
+		ret = ft_do_process(command_parts, myenv);
+	}
 
 	ft_free_after_split(command_parts);
 	ft_strdel(command_parts);
