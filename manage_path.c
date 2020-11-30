@@ -6,7 +6,7 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/29 16:08:02 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/11/30 14:31:58 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/11/30 17:39:08 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,29 +115,32 @@ void	ft_print_arr(char **arr) {
 }
 
 /*
-** old_path = '/' ->return /
-** old_path = '/usr' ->return /
-** old_path = '/usr/bin' -> return /usr
-** old_path = '/usr/bin/ -> return /usr
+** old_path = '/' ->became /
+** old_path = '/usr' ->became /
+** old_path = '/usr/bin' -> became /usr
+** old_path = '/usr/bin/ -> became /usr
 */
-char *ft_path_step_back(char *old_path) {
+void	ft_path_step_back(char **old_path) {
 	char **piece_path;
 	char *new_path;
-	char *new_full_path;
 
-	if (!ft_strcmp(old_path, "/")) {
-		return (ft_strdup(old_path));
+	if (!ft_strcmp(*old_path, "/")) {
+		// return (ft_strdup(*old_path));
+		return ;
 	}
-	piece_path = ft_strsplit(old_path, '/');
+	piece_path = ft_strsplit(*old_path, '/');
 	if (ft_arrlen(piece_path) == 1) {
-		return ft_strdup("/");
+		// return ft_strdup("/");
+		ft_strdel(old_path);
+		*old_path = ft_strdup("/");
+		return ;
 	}
 	ft_strdel(&(piece_path[ft_arrlen(piece_path) - 1]));
 	new_path = ft_create_str_from_split(piece_path, '/');
-	new_full_path = ft_strconcat("/", new_path);
+	ft_strdel(old_path);
+	*old_path = ft_strconcat("/", new_path);
 	ft_free_after_split(piece_path);
 	ft_strdel(piece_path);
-	return (new_full_path);
 }
 
 char *ft_concat_path(char *s1, char *s2) {
