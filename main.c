@@ -6,7 +6,7 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 15:54:28 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/12/01 18:16:10 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/12/01 21:19:13 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ void	ft_print_this_dir() {
 	t_env *pwd;
 
 	pwd = ft_find_in_list(g_env, "PWD");
-	ft_printf("\033[32;1m\e[38;5;161m%s\x1B[0m ", pwd->content);
+	// ft_printf("\033[32;1m\e[38;5;161m%s\x1B[0m ", pwd->content);
 }
 
 void	ft_print_promt() {
 
 	ft_print_this_dir();
 	// ft_printf("%lc ", g_promt);
-	ft_printf("$> ");
+	// ft_printf("$> ");
 }
 
 static void ft_promt(int s) {

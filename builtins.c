@@ -6,7 +6,7 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 17:58:10 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/12/01 18:24:41 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/12/01 20:58:52 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	ft_do_echo(char **command_parts, t_env *env) {
 
 void	ft_do_clear(char **command) {
 	if (command[1] != NULL) {
-		ft_printf(BOLD ITALIC GREEN_FON BLACK_TEXT "minishell:" DROP BOLD " clear: " DROP "too many arguments\n");
+		ft_fprintf(2, BOLD ITALIC GREEN_FON BLACK_TEXT "minishell:" DROP BOLD " clear: " DROP "too many arguments\n");
 		return ;
 	}
 	ft_putstr(CLEAR);//////////////////////////////
@@ -89,7 +89,7 @@ void	ft_do_help(char **command) {
 		return ;
 	}
 	if (command[1] != NULL && command[2] != NULL) {
-		ft_printf(BOLD ITALIC GREEN_FON BLACK_TEXT "minishell:" DROP BOLD " help:" DROP "too many arguments\n");
+		ft_fprintf(2, BOLD ITALIC GREEN_FON BLACK_TEXT "minishell:" DROP BOLD " help:" DROP "too many arguments\n");
 		return ;
 	}
 	if (!ft_strcmp(command[1], "echo"))

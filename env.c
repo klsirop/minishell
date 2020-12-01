@@ -6,7 +6,7 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 18:01:33 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/12/01 13:44:23 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/12/01 21:28:21 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	ft_print_env(char **command, t_env *myenv) {
 	t_env *tmp;
 
 	if (command[1] != NULL) {
-		ft_printf(BOLD ITALIC GREEN_FON BLACK_TEXT "minishell:" DROP BOLD " env: " DROP "too many arguments\n");
+		ft_fprintf(2, BOLD ITALIC GREEN_FON BLACK_TEXT "minishell:" DROP BOLD " env: " DROP "too many arguments\n");
 		return ;
 	}
 
@@ -128,13 +128,37 @@ char *ft_substitution(char *str, t_env *env) {
 	// return (new_str);
 }
 
+int		ft_is_valid_var_name(char *name) {
+	int i;
+	int letter;
+
+	i = 0;
+	letter = 0;
+	while (name[i]) {
+		if (name[i] >= 'A' && name[i] <= 'Z')
+			letter++;
+		i++;
+	}
+	if (letter > 0)
+		return (1);
+	return (0);
+}
+
 void	ft_do_setenv(char **command_parts, t_env **env) {
 	char *contant_no_quotes;
 	char *after_substitution;
 	t_env *is_exists;
 
-	if (command_parts[1] == NULL || command_parts[2] == NULL || command_parts[3] != NULL) {
-		ft_printf(BOLD ITALIC LIGHT_BLUE_FON BLACK_TEXT "usage:" DROP "\n" BOLD "\tsetenv " DROP "name value\n");
+	if (command_parts[1] == NULL) {
+		ft_print_env(command_parts, *env);
+		return ;
+	}
+	if (!ft_is_valid_var_name(command_parts[1])) {
+		ft_fprintf(2, BOLD "setenv: " DROP "not an identifier: %s\n", command_parts[1]);
+		return ;
+	}
+	if (command_parts[2] == NULL || command_parts[3] != NULL) {
+		ft_fprintf(2, BOLD ITALIC LIGHT_BLUE_FON BLACK_TEXT "usage:" DROP "\n" BOLD "\tsetenv " DROP "name value\n");
 		return ;
 	}
 	contant_no_quotes = ft_remove_quotes(command_parts[2]);
@@ -145,9 +169,15 @@ void	ft_do_setenv(char **command_parts, t_env **env) {
 }
 
 void	ft_do_unsetenv(char **command_parts, t_env **env) {
-	if (command_parts[1] == NULL || command_parts[2] != NULL) {
-		ft_printf(BOLD ITALIC LIGHT_BLUE_FON BLACK_TEXT "usage:" DROP "\n" BOLD "\tunsetenv " DROP "name\n");
+	int i;
+
+	if (command_parts[1] == NULL) {
+		ft_fprintf(2, BOLD ITALIC LIGHT_BLUE_FON BLACK_TEXT "usage:" DROP "\n" BOLD "\tunsetenv " DROP "name\n");
 		return ;
 	}
-	ft_list_delete_element_name(env, command_parts[1]);
+	i = 1;
+	while (command_parts[i]) {
+		ft_list_delete_element_name(env, command_parts[i]);
+		i++;
+	}
 }
