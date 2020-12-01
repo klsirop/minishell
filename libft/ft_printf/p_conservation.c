@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_conservation.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmaynard <jmaynard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/28 18:45:42 by jmaynard          #+#    #+#             */
-/*   Updated: 2019/07/25 09:22:40 by jmaynard         ###   ########.fr       */
+/*   Updated: 2020/12/01 18:46:22 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int		p_con(t_flags *param, va_list *arg)
 	}
 	else if (!(ft_put_x(&str, -1, flag, "0x")))
 		return (del(&str));
-	ft_putstr(str);
+	ft_putstr_fd(str, g_fd);
 	len = ft_strlen(str);
 	ft_strdel(&str);
 	return (len);

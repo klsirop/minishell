@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   float.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmaynard <jmaynard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 17:11:35 by volyvar-          #+#    #+#             */
-/*   Updated: 2019/07/25 09:21:18 by jmaynard         ###   ########.fr       */
+/*   Updated: 2020/12/01 18:45:53 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int		ft_cons_h_5(t_float *field, char **mant, va_list *arg)
 		return (-1);
 	if (ex == 1)
 	{
-		ft_putstr(*mant);
+		ft_putstr_fd(*mant, g_fd);
 		len = ft_strlen(*mant);
 		ft_strdel(mant);
 		return (len);

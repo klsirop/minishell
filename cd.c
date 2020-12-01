@@ -6,7 +6,7 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/29 13:59:35 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/11/30 20:48:10 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/12/01 18:51:29 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,15 +87,23 @@ char *ft_get_full_new_pwd(char *old_pwd, char *new_pwd, t_env *env) {///////////
 	char *tmp;
 	int i;
 	char *home;
+	int is_abs;
 
-	if (new_pwd[0] == '/')
-		return ft_strdup(new_pwd);
+	is_abs = 0;
+	if (new_pwd[0] == '/') {
+		is_abs = 1;
+		// return ft_strdup(new_pwd);
+	}
 
 	piece_path = ft_strsplit(new_pwd, '/');
 
 	i = 0;
 	home = ft_strdup(ft_find_in_list(env, "HOME")->content);
-	full_pwd = ft_strdup(old_pwd);
+	if (!is_abs)
+		full_pwd = ft_strdup(old_pwd);
+	else
+		full_pwd = ft_strdup("/");
+	// ft_printf("before: %s\n", full_pwd);
 	while (piece_path[i]) {
 		if (!ft_strcmp(piece_path[i], ".")) {
 			i++;
@@ -119,32 +127,14 @@ char *ft_get_full_new_pwd(char *old_pwd, char *new_pwd, t_env *env) {///////////
 	ft_strdel(&home);
 	ft_free_after_split(piece_path);
 	ft_strdel(piece_path);
+
+	if (is_abs) {
+		// ft_printf("when tmp: %s\n", full_pwd);
+		tmp = ft_strconcat("/", full_pwd);
+		return full_pwd;
+	}
+
 	return full_pwd;
-
-	// if (ft_arrlen(piece_path) == 1) { //ho parts
-	// 	if (!ft_strdmp(new_pwd, "."))
-	// 		return ft_strdup(old_pwd);
-	// 	if 
-	// }
-	
-	// char *full_pwd;
-	// char *tmp;
-
-	// if (!ft_strcmp(new_pwd, ".") || !ft_strcmp(new_pwd, "./")) {
-	// 	full_pwd = ft_strdup(old_pwd);
-	// 	return full_pwd;
-	// }
-	// if (!ft_strcmp(new_pwd, "..") || !ft_strcmp(new_pwd, "../")) {
-	// 	full_pwd = ft_path_step_back(old_pwd);
-	// 	return full_pwd;
-	// }
-	// if (new_pwd[0] != '/') {
-	// 	if (old_pwd[ft_strlen(old_pwd) - 1] == '/')
-	// 		return (ft_strconcat(old_pwd, new_pwd));
-	// 	else
-	// 		return (ft_strconcat_delim(old_pwd, new_pwd, "/"));
-	// }
-	// return NULL;
 }
 
 void	ft_change_oldpwd_and_pwd(t_env **env, char *new_pwd) {
@@ -160,12 +150,16 @@ void	ft_change_oldpwd_and_pwd(t_env **env, char *new_pwd) {
 
 void	ft_cd_go_to(t_env **env, char *dest_dir) {
 	char *new_path;
+	struct stat status;
 
 	new_path = ft_get_full_new_pwd(ft_find_in_list(*env, "PWD")->content, dest_dir, *env);
 
 	// concat full path
 	if (chdir(new_path) == -1) {
-		ft_printf("cd: no such file or directory: %s\n", dest_dir);
+		if (!lstat(new_path, &status))
+			ft_fprintf(2, "cd: not a directory: %s\n", dest_dir);
+		else
+			ft_fprintf(2, "cd: no such file or directory: %s\n", dest_dir);
 		return ;
 	}
 	ft_change_oldpwd_and_pwd(env, dest_dir);
@@ -181,6 +175,7 @@ void	ft_go_to_home_dir(t_env **env) {
 }
 
 /*
+** cd $NAME
 ** cd 					: go to home dir ($HOME)
 ** cd . 				: do nothing
 ** cd .. 				: go early dir (use $PWD)
@@ -195,6 +190,8 @@ void	ft_go_to_home_dir(t_env **env) {
 void	ft_do_cd(char **command_parts, t_env **env) {
 	t_env *tmp;
 	char *contant;
+	char *contant_no_quotes;
+	char *after_substitution;
 
 	if (command_parts[1] == NULL || !ft_strcmp(command_parts[1], "~")) { // cd
 		ft_go_to_home_dir(env);
@@ -212,7 +209,11 @@ void	ft_do_cd(char **command_parts, t_env **env) {
 				ft_strdel(&contant);
 			}
 		} else {
-			ft_cd_go_to(env, command_parts[1]);
+			contant_no_quotes = ft_remove_quotes(command_parts[1]);
+			after_substitution = ft_substitution(contant_no_quotes, *env);
+			ft_cd_go_to(env, after_substitution);
+			ft_strdel(&contant_no_quotes);
+			ft_strdel(&after_substitution);
 		}
 
 		return ;

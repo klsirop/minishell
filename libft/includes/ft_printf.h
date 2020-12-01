@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klsirop <klsirop@student.42.fr>            +#+  +:+       +#+        */
+/*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/13 14:08:14 by jmaynard          #+#    #+#             */
-/*   Updated: 2020/08/01 17:54:35 by klsirop          ###   ########.fr       */
+/*   Updated: 2020/12/01 18:48:07 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ typedef struct		s_float
 int					ft_printf(const char *format, ...);
 
 int					(*g_func[10])(t_flags *, va_list *);
+
+int					g_fd;
 
 int					di_con(t_flags *param, va_list *arg);
 int					o_con(t_flags *param, va_list *arg);

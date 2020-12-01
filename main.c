@@ -6,7 +6,7 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 15:54:28 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/12/01 14:21:24 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/12/01 18:16:10 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,8 @@ void	ft_print_this_dir() {
 }
 
 void	ft_print_promt() {
-	static int promt;
 
-	// ft_print_this_dir();
-	promt = PROMT_GAY;
+	ft_print_this_dir();
 	// ft_printf("%lc ", g_promt);
 	ft_printf("$> ");
 }
@@ -61,10 +59,10 @@ int main(int argc, char **argv, char **env) {
 			// is_exit = 1;
 		input = ft_read_input();
 			
-		if (input && !(semicolon_input = ft_strsplit(input, ';')))
+		if (!(semicolon_input = ft_strsplit(input, ';')))
 			ft_error();
 		i = 0;
-		while (input && semicolon_input[i] != NULL) {
+		while (semicolon_input[i] != NULL) {
 			if (ft_do_command(semicolon_input[i], &g_env) == -1) {
 				is_exit = 1;
 				break ;

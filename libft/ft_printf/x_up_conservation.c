@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   x_up_conservation.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmaynard <jmaynard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 20:33:40 by jmaynard          #+#    #+#             */
-/*   Updated: 2019/07/25 09:23:04 by jmaynard         ###   ########.fr       */
+/*   Updated: 2020/12/01 18:47:29 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int		x_up_con(t_flags *param, va_list *arg)
 		return (del(&str));
 	if (!(ft_hastag(param, zero, &str, i)))
 		return (del(&str));
-	ft_putstr(str);
+	ft_putstr_fd(str, g_fd);
 	len = ft_strlen(str);
 	ft_strdel(&str);
 	return (len);

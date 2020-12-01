@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   x_conservation.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klsirop <klsirop@student.42.fr>            +#+  +:+       +#+        */
+/*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 20:17:19 by jmaynard          #+#    #+#             */
-/*   Updated: 2020/08/01 17:55:39 by klsirop          ###   ########.fr       */
+/*   Updated: 2020/12/01 18:47:20 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ int		x_con(t_flags *param, va_list *arg)
 		return (del(&str));
 	if (!(ft_hastag(param, zero, &str, flag)))
 		return (del(&str));
-	ft_putstr(str);
+	ft_putstr_fd(str, g_fd);
 	len = ft_strlen(str);
 	ft_strdel(&str);
 	return (len);

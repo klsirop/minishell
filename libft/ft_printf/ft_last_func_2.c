@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_last_func_2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmaynard <jmaynard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/13 18:51:55 by volyvar-          #+#    #+#             */
-/*   Updated: 2019/07/25 09:21:29 by jmaynard         ###   ########.fr       */
+/*   Updated: 2020/12/01 18:46:07 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		ft_last_func(char **mant, t_flags *param, int len)
 	if (ft_puttostr(param, len, &val, mant) == -1)
 		return (-1);
 	len = ft_strlen(*mant);
-	ft_putstr(*mant);
+	ft_putstr_fd(*mant, g_fd);
 	ft_strdel(mant);
 	return (len);
 }

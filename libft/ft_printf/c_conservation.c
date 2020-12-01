@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   c_conservation.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmaynard <jmaynard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/28 17:06:58 by jmaynard          #+#    #+#             */
-/*   Updated: 2019/07/25 09:19:42 by jmaynard         ###   ########.fr       */
+/*   Updated: 2020/12/01 18:49:04 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ void	ft_cwid(t_flags *param, char c, char *str, int len)
 {
 	if (ft_strchr(param->flags, '-'))
 	{
-		ft_putchar(c);
+		ft_putchar_fd(c, g_fd);
 		ft_memset(str, ' ', len);
-		ft_putstr(str);
+		ft_putstr_fd(str, g_fd);
 	}
 	else
 	{
@@ -26,8 +26,8 @@ void	ft_cwid(t_flags *param, char c, char *str, int len)
 			ft_memset(str, '0', len);
 		else
 			ft_memset(str, ' ', len);
-		ft_putstr(str);
-		ft_putchar(c);
+		ft_putstr_fd(str, g_fd);
+		ft_putchar_fd(c, g_fd);
 	}
 	str[len] = '\0';
 }
@@ -49,7 +49,7 @@ int		c_con(t_flags *param, va_list *arg)
 	}
 	else
 	{
-		ft_putchar(c);
+		ft_putchar_fd(c, g_fd);
 		return (1);
 	}
 	ft_cwid(param, c, str, len);

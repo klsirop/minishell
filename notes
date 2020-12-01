@@ -111,3 +111,7 @@ setenv PATH "$PATH:/tmp/bin" - неправильное сообщение об 
 запуск test_exec_right - не работает exit	+
 ctrl+c не работает с cat
 
+
+
+.....x.......x.x.x.x.x.x...xxxxx.xxxx.x..x....
+.............x.x.x.x.x.x...xxxxx.xxxx.x..x....

@@ -6,7 +6,7 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 17:58:10 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/12/01 13:45:56 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/12/01 18:24:41 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	ft_do_clear(char **command) {
 		ft_printf(BOLD ITALIC GREEN_FON BLACK_TEXT "minishell:" DROP BOLD " clear: " DROP "too many arguments\n");
 		return ;
 	}
-	ft_putstr(CLEAR);
+	ft_putstr(CLEAR);//////////////////////////////
 }
 
 void	ft_do_help(char **command) {

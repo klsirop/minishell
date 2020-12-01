@@ -6,13 +6,18 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 15:54:39 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/12/01 13:41:44 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/12/01 18:52:30 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./libft/includes/libft.h"
 #include "./libft/includes/ft_printf.h"
+#include "./libft/includes/ft_fprintf.h"
 #include "./libft/includes/get_next_line.h"
+
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
 
 #define CLEAR "\033[?1049h\033[H"
 #define UNCLEAR "\033[?1049l"
@@ -79,6 +84,7 @@ void	ft_print_env(char **command, t_env *myenv);
 void	ft_do_setenv(char **command_parts, t_env **env);
 void	ft_do_unsetenv(char **command_parts, t_env **env);
 char *ft_remove_quotes(char *str);
+char *ft_substitution(char *str, t_env *env);
 
 /*
 ** list.c

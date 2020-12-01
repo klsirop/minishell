@@ -6,7 +6,7 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/29 19:16:13 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/12/01 13:45:35 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/12/01 18:53:40 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	ft_do_process(char **command, t_env **env) {
 				execve(command[0], command, arr_env);
 				
 			} else {
-				ft_printf(BOLD ITALIC GREEN_FON BLACK_TEXT "minishell:" DROP BOLD " permission denied:" DROP" %s\n", command[0]);
+				ft_fprintf(2, BOLD ITALIC GREEN_FON BLACK_TEXT "minishell:" DROP BOLD " permission denied:" DROP" %s\n", command[0]);
 			}
 			exit(0);
 				// ft_error();
@@ -90,11 +90,11 @@ int	ft_do_process(char **command, t_env **env) {
 					ft_strdel(&new_exe);
 					execve(command[0], command, arr_env);
 				} else {
-					ft_printf(BOLD ITALIC GREEN_FON BLACK_TEXT "minishell:" DROP BOLD " permission denied:" DROP " %s\n", command[0]);
+					ft_fprintf(2, BOLD ITALIC GREEN_FON BLACK_TEXT "minishell:" DROP BOLD " permission denied:" DROP " %s\n", command[0]);
 				}
 				exit(0);
 			} else {
-				ft_printf(BOLD ITALIC GREEN_FON BLACK_TEXT "minishell:" DROP BOLD " command not found:" DROP " %s\n", command[0]);
+				ft_fprintf(2, BOLD ITALIC GREEN_FON BLACK_TEXT "minishell:" DROP BOLD " command not found:" DROP " %s\n", command[0]);
 				// ft_free_after_split(arr_env);
 				// ft_strdel(arr_env);
 				// ft_error();

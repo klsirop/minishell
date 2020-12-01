@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cl_cons.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmaynard <jmaynard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/12 15:50:12 by jmaynard          #+#    #+#             */
-/*   Updated: 2019/07/25 09:19:46 by jmaynard         ###   ########.fr       */
+/*   Updated: 2020/12/01 18:44:58 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int		ft_print_char(int c)
 {
-	write(1, &c, 1);
+	write(g_fd, &c, 1);
 	return (1);
 }
 
@@ -60,7 +60,7 @@ void			ft_wcwid(t_flags *param, char c, char *str, int *len)
 		ft_memset(str, ' ', *len);
 		str[*len] = '\0';
 		*len += ft_putch(c);
-		ft_putstr(str);
+		ft_putstr_fd(str, g_fd);
 	}
 	else
 	{
@@ -69,7 +69,7 @@ void			ft_wcwid(t_flags *param, char c, char *str, int *len)
 		else
 			ft_memset(str, ' ', *len);
 		str[*len] = '\0';
-		ft_putstr(str);
+		ft_putstr_fd(str, g_fd);
 		*len += ft_putch(c);
 	}
 }

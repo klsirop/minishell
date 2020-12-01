@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmaynard <jmaynard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/13 14:53:50 by jmaynard          #+#    #+#             */
-/*   Updated: 2019/07/25 09:21:33 by jmaynard         ###   ########.fr       */
+/*   Updated: 2020/12/01 18:49:22 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
+#include "../includes/ft_fprintf.h"
 
 int		ft_printf(const char *format, ...)
 {
@@ -18,6 +19,21 @@ int		ft_printf(const char *format, ...)
 	int			val;
 
 	val = 0;
+	g_fd = 1;
+	va_start(arg, format);
+	create_func();
+	ft_read_arg(&arg, (char *)format, &val);
+	va_end(arg);
+	return (val);
+}
+
+int		ft_fprintf(int fd, const char *format, ...)
+{
+	va_list		arg;
+	int			val;
+
+	val = 0;
+	g_fd = fd;
 	va_start(arg, format);
 	create_func();
 	ft_read_arg(&arg, (char *)format, &val);
@@ -51,7 +67,7 @@ int		ft_percent(t_flags *param, char c)
 	}
 	else
 	{
-		ft_putchar(c);
+		ft_putchar_fd(c, g_fd);
 		return (1);
 	}
 	ft_cwid(param, c, str, len);

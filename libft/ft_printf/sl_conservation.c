@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sl_conservation.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmaynard <jmaynard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/12 13:55:47 by jmaynard          #+#    #+#             */
-/*   Updated: 2019/07/25 09:22:48 by jmaynard         ###   ########.fr       */
+/*   Updated: 2020/12/01 18:47:08 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int			ft_wwid(t_flags *param, int len, char *tmp)
 	else
 		m = ft_strlen(tmp);
 	if (m > 1)
-		ft_putstr(tmp);
+		ft_putstr_fd(tmp, g_fd);
 	return (m);
 }
 
@@ -100,7 +100,7 @@ int			s_big(t_flags *param, va_list *arg)
 	}
 	len = ft_strlen_w(str);
 	ft_putstr_w(str, param->pres);
-	m == 1 ? ft_putstr(tmp) : 0;
+	m == 1 ? ft_putstr_fd(tmp, g_fd) : 0;
 	m > 1 ? len += m : 0;
 	ft_strdel(&tmp);
 	return (len);

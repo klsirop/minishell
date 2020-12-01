@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   di_cons_2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmaynard <jmaynard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 09:43:28 by volyvar-          #+#    #+#             */
-/*   Updated: 2019/07/25 09:19:39 by jmaynard         ###   ########.fr       */
+/*   Updated: 2020/12/01 18:45:24 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		ft_doing(t_flags *param, int l, int *val, char **str)
 	}
 	if (ft_puttostr(param, l, val, str) == -1)
 		return (-1);
-	ft_putstr(*str);
+	ft_putstr_fd(*str, g_fd);
 	ft_strdel(str);
 	ft_free_param(param);
 	return (0);
@@ -50,7 +50,7 @@ int		ft_doing_u(t_flags *param, int l, int *val, char **str)
 		*val = 0;
 	if (ft_puttostr_u(param, l, val, str) == -1)
 		return (-1);
-	ft_putstr(*str);
+	ft_putstr_fd(*str, g_fd);
 	ft_strdel(str);
 	ft_free_param(param);
 	return (0);

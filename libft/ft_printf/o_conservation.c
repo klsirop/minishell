@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   o_conservation.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klsirop <klsirop@student.42.fr>            +#+  +:+       +#+        */
+/*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 17:58:44 by jmaynard          #+#    #+#             */
-/*   Updated: 2020/08/01 17:55:19 by klsirop          ###   ########.fr       */
+/*   Updated: 2020/12/01 18:46:15 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ int		o_con(t_flags *param, va_list *arg)
 		return (0);
 	if (!(ft_owid(param, &str, ft_strlen(str))))
 		return (0);
-	ft_putstr(str);
+	ft_putstr_fd(str, g_fd);
 	len = ft_strlen(str);
 	ft_strdel(&str);
 	return (len);

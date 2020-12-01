@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_read_arg.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmaynard <jmaynard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/13 14:59:03 by jmaynard          #+#    #+#             */
-/*   Updated: 2019/07/25 09:21:37 by jmaynard         ###   ########.fr       */
+/*   Updated: 2020/12/01 18:50:04 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		ft_putnstr(const char *s, size_t size)
 	i = 0;
 	while (i < size)
 	{
-		write(1, &s[i], 1);
+		write(g_fd, &s[i], 1);
 		i++;
 	}
 	return (i);
@@ -85,7 +85,7 @@ void	ft_read_arg(va_list *arg, char *format, int *val)
 		return ;
 	if (!(tmp = ft_strchr(format, '%')))
 	{
-		ft_putstr(format);
+		ft_putstr_fd(format, g_fd);
 		*val += ft_strlen(format);
 		return ;
 	}
@@ -93,7 +93,7 @@ void	ft_read_arg(va_list *arg, char *format, int *val)
 	{
 		while (format < tmp)
 		{
-			ft_putchar(*format);
+			ft_putchar_fd(*format, g_fd);
 			(*val)++;
 			format++;
 		}

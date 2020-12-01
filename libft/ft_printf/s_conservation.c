@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   s_conservation.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmaynard <jmaynard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/28 17:19:31 by jmaynard          #+#    #+#             */
-/*   Updated: 2019/07/25 09:22:44 by jmaynard         ###   ########.fr       */
+/*   Updated: 2020/12/01 18:46:30 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int		s_con(t_flags *param, va_list *arg)
 		return (del(&str));
 	if (!ft_strwid(&str, param, ft_strlen(str)))
 		return (del(&str));
-	ft_putstr(str);
+	ft_putstr_fd(str, g_fd);
 	len = ft_strlen(str);
 	ft_strdel(&str);
 	return (len);

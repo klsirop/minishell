@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   float_hhh.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmaynard <jmaynard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/11 21:33:55 by volyvar-          #+#    #+#             */
-/*   Updated: 2019/07/25 09:21:15 by jmaynard         ###   ########.fr       */
+/*   Updated: 2020/12/01 18:45:44 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int		ft_con_h_2(int s, char **mant, t_flags *param)
 	n = ft_strlen(*mant);
 	if (ft_puttostr_f(param, len, &n, mant) == -1)
 		return (0);
-	ft_putstr(*mant);
+	ft_putstr_fd(*mant, g_fd);
 	len = ft_strlen(*mant);
 	ft_strdel(mant);
 	return (len);
@@ -70,7 +70,7 @@ int		ft_cons_h_3(int exp, char **mant)
 		return (-1);
 	if (exp == 1)
 	{
-		ft_putstr(*mant);
+		ft_putstr_fd(*mant, g_fd);
 		len = ft_strlen((const char *)mant);
 		ft_strdel(mant);
 		return (len);

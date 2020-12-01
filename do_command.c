@@ -6,7 +6,7 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 16:47:03 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/12/01 14:38:24 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/12/01 18:55:03 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,33 +61,33 @@ int ft_do_command(char *command, t_env **myenv) {
 	
 	if (!command_parts || !command_parts[0])
 		return 0;
-	// else if (!ft_strcmp(command_parts[0], "echo"))
-	// 	ft_do_echo(command_parts, *myenv);
-	// else if (!ft_strcmp(command_parts[0], "env"))
-	// 	ft_print_env(command_parts, *myenv);
-	// else if (!ft_strcmp(command_parts[0], "setenv"))
-	// 	ft_do_setenv(command_parts, myenv);
+	else if (!ft_strcmp(command_parts[0], "echo"))
+		ft_do_echo(command_parts, *myenv);
+	else if (!ft_strcmp(command_parts[0], "env"))
+		ft_print_env(command_parts, *myenv);
+	else if (!ft_strcmp(command_parts[0], "setenv"))
+		ft_do_setenv(command_parts, myenv);
 	else if (!ft_strcmp(command_parts[0], "exit")) {
-		// if (command_parts[1] == NULL)
-			// return (-1);
-		// else
-		// 	ft_printf(BOLD ITALIC GREEN_FON BLACK_TEXT "minishell:" DROP BOLD " exit:" DROP "too many arguments\n");
+		if (command_parts[1] == NULL)
+			return (-1);
+		else
+			ft_fprintf(2, BOLD ITALIC GREEN_FON BLACK_TEXT "minishell:" DROP BOLD " exit:" DROP "too many arguments\n");
 		exit(0);
 	}
-	// else if (!ft_strcmp(command_parts[0], "clear"))
-	// 	ft_do_clear(command_parts);
-	// else if (!ft_strcmp(command_parts[0], "unsetenv"))
-	// 	ft_do_unsetenv(command_parts, myenv);
-	// else if (!ft_strcmp(command_parts[0], "help"))
-	// 	ft_do_help(command_parts);
-	// else if (!ft_strcmp(command_parts[0], "cd"))
-	// 	ft_do_cd(command_parts, myenv);
-	// else if (!ft_strcmp(command_parts[0], "iamgay"))
-	// 	ft_iamgay(command_parts);
-	// else if (!ft_strcmp(command_parts[0], "iambi"))
-	// 	ft_iambi(command_parts);
+	else if (!ft_strcmp(command_parts[0], "clear"))
+		ft_do_clear(command_parts);
+	else if (!ft_strcmp(command_parts[0], "unsetenv"))
+		ft_do_unsetenv(command_parts, myenv);
+	else if (!ft_strcmp(command_parts[0], "help"))
+		ft_do_help(command_parts);
+	else if (!ft_strcmp(command_parts[0], "cd"))
+		ft_do_cd(command_parts, myenv);
+	else if (!ft_strcmp(command_parts[0], "iamgay"))
+		ft_iamgay(command_parts);
+	else if (!ft_strcmp(command_parts[0], "iambi"))
+		ft_iambi(command_parts);
 	else {
-		// ret = ft_do_process(command_parts, myenv);
+		ret = ft_do_process(command_parts, myenv);
 	}
 
 	ft_free_after_split(command_parts);
