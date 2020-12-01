@@ -6,7 +6,7 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 15:54:39 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/11/30 21:36:01 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/12/01 13:41:44 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,20 @@
 #include "./libft/includes/ft_printf.h"
 #include "./libft/includes/get_next_line.h"
 
+#define CLEAR "\033[?1049h\033[H"
+#define UNCLEAR "\033[?1049l"
+
 #define PROMT_SMILE 0x1F60F
 #define PROMT_GAY 0x1F308
+
+#define ITALIC "\033[0;3m"
+#define BOLD "\033[1;1m"
+#define DROP "\x1B[0m"
+
+#define GREEN_FON "\e[48;5;78m"
+#define LIGHT_BLUE_FON "\e[48;5;123m"
+
+#define BLACK_TEXT "\e[38;5;16m"
 
 int g_promt;
 
@@ -63,7 +75,7 @@ char			**ft_strsplit_sh(char const *s, char c, char c1);
 */
 
 void	ft_set_origin_env(t_env **myenv, char **env);
-void	ft_print_env(t_env *myenv);
+void	ft_print_env(char **command, t_env *myenv);
 void	ft_do_setenv(char **command_parts, t_env **env);
 void	ft_do_unsetenv(char **command_parts, t_env **env);
 char *ft_remove_quotes(char *str);
@@ -83,7 +95,7 @@ int		ft_find_list_len(t_env *head);
 
 void	ft_do_echo(char **command_parts, t_env *env);
 char *ft_find_var(char *str, t_env *env);
-void	ft_do_clear();
+void	ft_do_clear(char **command);
 void	ft_do_help();
 
 /*

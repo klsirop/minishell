@@ -106,7 +106,8 @@ ctrl+d
 
 
 ОШИБКИ:
-setenv VAR ~/Desktop
-setenv PATH "$PATH:/tmp/bin" - неправильное сообщение об ошибке, надо permission denied
-запуск test_exec_right - не работает exit
+setenv VAR ~/Desktop					+
+setenv PATH "$PATH:/tmp/bin" - неправильное сообщение об ошибке, надо permission denied	+
+запуск test_exec_right - не работает exit	+
+ctrl+c не работает с cat
 

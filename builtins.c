@@ -6,7 +6,7 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 17:58:10 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/11/28 23:14:06 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/12/01 13:45:56 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,18 +67,48 @@ void	ft_do_echo(char **command_parts, t_env *env) {
 	ft_printf("\n");
 }
 
-void	ft_do_clear() {
-	ft_putstr("\033[?1049h\033[H");
+void	ft_do_clear(char **command) {
+	if (command[1] != NULL) {
+		ft_printf(BOLD ITALIC GREEN_FON BLACK_TEXT "minishell:" DROP BOLD " clear: " DROP "too many arguments\n");
+		return ;
+	}
+	ft_putstr(CLEAR);
 }
 
-void	ft_do_help() {
-	ft_printf("usage:\n");
-	ft_printf("	echo [argc]\n");
-	ft_printf("	env\n");
-	ft_printf("	setenv [name] [var]\n");
-	ft_printf("	unsetenv [name]\n");
-	ft_printf("	clear\n");
-	ft_printf("	help\n");
-	ft_printf("	cd [argc]\n");
-	ft_printf("	exit\n");
+void	ft_do_help(char **command) {
+	if (command[1] == NULL) {
+		ft_printf(ITALIC BOLD LIGHT_BLUE_FON BLACK_TEXT "usage:" DROP "\n");
+		ft_printf("\t" BOLD "echo " DROP "[argc]\n");
+		ft_printf("\t" BOLD "env" DROP "\n");
+		ft_printf("\t" BOLD "setenv " DROP "name var\n");
+		ft_printf("\t" BOLD "unsetenv " DROP "name\n");
+		ft_printf("\t" BOLD "clear" DROP "\n");
+		ft_printf("\t" BOLD "help " DROP "[command_name]\n");
+		ft_printf("\t" BOLD "cd " DROP "[argc]\n");
+		ft_printf("\t" BOLD "exit" DROP "\n");
+		return ;
+	}
+	if (command[1] != NULL && command[2] != NULL) {
+		ft_printf(BOLD ITALIC GREEN_FON BLACK_TEXT "minishell:" DROP BOLD " help:" DROP "too many arguments\n");
+		return ;
+	}
+	if (!ft_strcmp(command[1], "echo"))
+		ft_printf(ITALIC BOLD LIGHT_BLUE_FON BLACK_TEXT "usage:" DROP "\n" BOLD "\techo " DROP "[args]\n");
+	else if (!ft_strcmp(command[1], "env"))
+		ft_printf(ITALIC BOLD LIGHT_BLUE_FON BLACK_TEXT "usage:" DROP  "\n" BOLD "\tenv" DROP "\n");
+	else if (!ft_strcmp(command[1], "setenv"))
+		ft_printf(ITALIC BOLD LIGHT_BLUE_FON BLACK_TEXT "usage:" DROP  "\n" BOLD "\tsetenv " DROP "name value\n");
+	else if (!ft_strcmp(command[1], "unsetenv"))
+		ft_printf(ITALIC BOLD LIGHT_BLUE_FON BLACK_TEXT "usage:" DROP  "\n" BOLD "\tunsetenv " DROP "name\n");
+	else if (!ft_strcmp(command[1], "clear"))
+		ft_printf(ITALIC BOLD LIGHT_BLUE_FON BLACK_TEXT "usage:" DROP  "\n" BOLD "\tclear" DROP "\n");
+	else if (!ft_strcmp(command[1], "help"))
+		ft_printf(ITALIC BOLD LIGHT_BLUE_FON BLACK_TEXT "usage:" DROP  "\n" BOLD "\thelp " DROP "[command_name]\n");
+	else if (!ft_strcmp(command[1], "cd"))
+		ft_printf(ITALIC BOLD LIGHT_BLUE_FON BLACK_TEXT "usage:" DROP  "\n" BOLD "\tcd " DROP "[args]\n");
+	else if (!ft_strcmp(command[1], "exit"))
+		ft_printf(ITALIC BOLD LIGHT_BLUE_FON BLACK_TEXT "usage:" DROP  "\n" BOLD "\texit" DROP "\n");
+	else {
+		ft_printf(ITALIC "minishell: " DROP BOLD "help: " DROP "unknown argument\n");
+	}
 }

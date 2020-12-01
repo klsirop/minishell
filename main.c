@@ -6,7 +6,7 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 15:54:28 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/11/30 21:49:13 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/12/01 14:21:24 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,10 @@ void	ft_print_this_dir() {
 void	ft_print_promt() {
 	static int promt;
 
-	ft_print_this_dir();
+	// ft_print_this_dir();
 	promt = PROMT_GAY;
-	ft_printf("%lc ", g_promt);
+	// ft_printf("%lc ", g_promt);
+	ft_printf("$> ");
 }
 
 static void ft_promt(int s) {
@@ -40,7 +41,7 @@ static void ft_promt(int s) {
 }
 
 int main(int argc, char **argv, char **env) {
-	// ft_printf("\033[?1049h\033[H");
+	// ft_printf(CLEAR);
 	int is_exit;
 	char *input;
 	char **semicolon_input;
@@ -77,6 +78,6 @@ int main(int argc, char **argv, char **env) {
 		// ft_strdel(&input);
 	}
 	//ft_free_env;
-	// ft_printf("\033[?1049l");
+	// ft_printf(UNCLEAR);
 	return (0);
 }
