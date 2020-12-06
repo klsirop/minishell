@@ -6,7 +6,7 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 15:54:39 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/12/01 18:52:30 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/12/05 16:22:13 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	ft_malloc_error();
 */
 
 void	ft_free_after_split(char **arr);
+void	ft_free_after_split_path(char **arr);
 
 /*
 ** do_command.c

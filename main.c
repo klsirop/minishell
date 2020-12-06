@@ -6,7 +6,7 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 15:54:28 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/12/01 21:19:13 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/12/06 15:08:26 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ void	ft_print_this_dir() {
 	t_env *pwd;
 
 	pwd = ft_find_in_list(g_env, "PWD");
-	// ft_printf("\033[32;1m\e[38;5;161m%s\x1B[0m ", pwd->content);
+	ft_printf("\033[32;1m\e[38;5;161m%s\x1B[0m ", pwd->content);
 }
 
 void	ft_print_promt() {
 
 	ft_print_this_dir();
-	// ft_printf("%lc ", g_promt);
+	ft_printf("%lc ", g_promt);
 	// ft_printf("$> ");
 }
 
@@ -44,7 +44,6 @@ int main(int argc, char **argv, char **env) {
 	char *input;
 	char **semicolon_input;
 	int i;
-	// t_env *myenv;
 
 	g_promt = PROMT_SMILE;
 
@@ -54,9 +53,7 @@ int main(int argc, char **argv, char **env) {
 	while (!is_exit) {
 		ft_print_promt();
 		if (signal(SIGINT, ft_promt)) {
-			// ft_printf("signal\n");
 		}
-			// is_exit = 1;
 		input = ft_read_input();
 			
 		if (!(semicolon_input = ft_strsplit(input, ';')))

@@ -6,7 +6,7 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 18:01:33 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/12/01 21:28:21 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/12/05 17:18:27 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,24 @@ void	ft_set_origin_env(t_env **myenv, char **env) {
 	int i;
 	char **parse_env;
 
+	if (!env)
+		return ;
+
 	i = 0;
 	while (env[i] != NULL) {
+		if (!ft_strcmp("PATH=", env[i])) {
+			ft_strdel(&env[i]);
+			env[i] = ft_strdup("PATH=/usr/bin:/bin");
+		}
 		if (!(parse_env = ft_strsplit(env[i], '=')))
 			ft_error();
-		if (!parse_env[0] || !parse_env[1])
+		if (!parse_env[0])
 			ft_error();
+		if (!parse_env[1]) {
+				parse_env[1] = ft_strdup("");
+		}
 		ft_list_add(myenv, parse_env[0], parse_env[1]);
-		ft_free_after_split(parse_env);
+		ft_free_after_split_path(parse_env);
 		ft_strdel(parse_env);
 		i++;
 	}
