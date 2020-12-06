@@ -6,7 +6,7 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 15:54:39 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/12/05 16:22:13 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/12/06 19:58:49 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,11 @@
 #define BOLD "\033[1;1m"
 #define DROP "\x1B[0m"
 
-#define GREEN_FON "\e[48;5;78m"
-#define LIGHT_BLUE_FON "\e[48;5;123m"
+#define GREEN_FON "\e[48;5;78m\e[38;5;16m"
+#define BLUE_FON "\e[48;5;123m\e[38;5;16m"
+#define PINK_TEXT "\e[38;5;161m"
 
-#define BLACK_TEXT "\e[38;5;16m"
+// #define BLACK_TEXT "\e[38;5;16m"
 
 int g_promt;
 
@@ -62,13 +63,13 @@ void	ft_malloc_error();
 */
 
 void	ft_free_after_split(char **arr);
-void	ft_free_after_split_path(char **arr);
+void	ft_free_env(t_env **env);
 
 /*
 ** do_command.c
 */
 
-int ft_do_command(char *command, t_env **myenv);
+int ft_do_command(char *command, t_env **myenv, uint8_t *exit_stat);
 
 /*
 ** ft_strsplit_sh.c
@@ -100,17 +101,22 @@ int		ft_find_list_len(t_env *head);
 ** builtins.c
 */
 
+void	ft_do_help();
+
+/*
+** echo.c
+*/
+
 void	ft_do_echo(char **command_parts, t_env *env);
 char *ft_find_var(char *str, t_env *env);
 void	ft_do_clear(char **command);
-void	ft_do_help();
 
 /*
 ** cd.c
 */
 
 void	ft_change_or_create_var(t_env **env, char *var_name, char *content);
-void	ft_do_cd(char **command_parts, t_env **env);
+int		ft_do_cd(char **command_parts, t_env **env);
 
 /*
 ** manage_path.c
@@ -142,3 +148,9 @@ int		ft_do_process(char **command_parts, t_env **env);
 */
 
 char					**ft_strsplit_my(char const *s, char c);
+
+/*
+** exit.c
+*/
+
+int		ft_do_exit(char **command, uint8_t *exit_stat);

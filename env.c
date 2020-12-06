@@ -6,7 +6,7 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 18:01:33 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/12/05 17:18:27 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/12/06 20:04:25 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,16 @@ void	ft_set_origin_env(t_env **myenv, char **env) {
 
 	i = 0;
 	while (env[i] != NULL) {
-		if (!ft_strcmp("PATH=", env[i])) {
+		if (!ft_strcmp(env[i], "PATH=")) {
 			ft_strdel(&env[i]);
-			env[i] = ft_strdup("PATH=/usr/bin:/bin");
+			env[i] = ft_strdup("/usr/bin:/bin");
 		}
 		if (!(parse_env = ft_strsplit(env[i], '=')))
 			ft_error();
 		if (!parse_env[0])
 			ft_error();
-		if (!parse_env[1]) {
-				parse_env[1] = ft_strdup("");
-		}
 		ft_list_add(myenv, parse_env[0], parse_env[1]);
-		ft_free_after_split_path(parse_env);
+		ft_free_after_split(parse_env);
 		ft_strdel(parse_env);
 		i++;
 	}
@@ -43,7 +40,7 @@ void	ft_print_env(char **command, t_env *myenv) {
 	t_env *tmp;
 
 	if (command[1] != NULL) {
-		ft_fprintf(2, BOLD ITALIC GREEN_FON BLACK_TEXT "minishell:" DROP BOLD " env: " DROP "too many arguments\n");
+		ft_fprintf(2, GREEN_FON "minishell:" DROP BOLD " env: " DROP "too many arguments\n");
 		return ;
 	}
 
@@ -164,11 +161,11 @@ void	ft_do_setenv(char **command_parts, t_env **env) {
 		return ;
 	}
 	if (!ft_is_valid_var_name(command_parts[1])) {
-		ft_fprintf(2, BOLD "setenv: " DROP "not an identifier: %s\n", command_parts[1]);
+		ft_fprintf(2, GREEN_FON "minishell:" DROP BOLD " setenv: " DROP "not an identifier: %s\n", command_parts[1]);
 		return ;
 	}
 	if (command_parts[2] == NULL || command_parts[3] != NULL) {
-		ft_fprintf(2, BOLD ITALIC LIGHT_BLUE_FON BLACK_TEXT "usage:" DROP "\n" BOLD "\tsetenv " DROP "name value\n");
+		ft_fprintf(2, BOLD ITALIC BLUE_FON "usage:" DROP "\n" BOLD "\tsetenv " DROP "name value\n");
 		return ;
 	}
 	contant_no_quotes = ft_remove_quotes(command_parts[2]);
@@ -182,7 +179,7 @@ void	ft_do_unsetenv(char **command_parts, t_env **env) {
 	int i;
 
 	if (command_parts[1] == NULL) {
-		ft_fprintf(2, BOLD ITALIC LIGHT_BLUE_FON BLACK_TEXT "usage:" DROP "\n" BOLD "\tunsetenv " DROP "name\n");
+		ft_fprintf(2, BOLD ITALIC BLUE_FON "usage:" DROP "\n" BOLD "\tunsetenv " DROP "name\n");
 		return ;
 	}
 	i = 1;

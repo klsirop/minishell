@@ -6,7 +6,7 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 18:47:12 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/12/05 16:17:37 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/12/06 15:15:05 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,11 @@ void	ft_list_add(t_env **head, char *name, char *content)
 
 	if (!(tmp = (t_env *)malloc(sizeof(t_env))))
 		ft_malloc_error();
-	if (!(tmp->name = ft_strdup(name)))
+	tmp->name = NULL;
+	tmp->content = NULL;
+	if (name && !(tmp->name = ft_strdup(name)))
 		ft_malloc_error();
-	if (!(tmp->content = ft_strdup(content)))
+	if (content && !(tmp->content = ft_strdup(content)))
 		ft_malloc_error();
 	tmp->next = NULL;
 	if (*head == NULL)

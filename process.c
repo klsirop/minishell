@@ -6,7 +6,7 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/29 19:16:13 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/12/05 15:41:06 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/12/06 20:04:48 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ int	ft_do_process(char **command, t_env **env) {
 	char *contant_no_quotes;
 	char *after_substitution;
 
-	// ft_printf("\t\t\t com: %s\n", command[0]);
 	arr_env = NULL;
 	ft_create_arr_env(&arr_env, *env);
 	pid = fork();
@@ -82,7 +81,7 @@ int	ft_do_process(char **command, t_env **env) {
 				execve(after_substitution, command, arr_env);
 				
 			} else {
-				ft_fprintf(2, BOLD ITALIC GREEN_FON BLACK_TEXT "minishell:" DROP BOLD " permission denied:" DROP" %s\n", after_substitution);
+				ft_fprintf(2, GREEN_FON "minishell:" DROP BOLD " permission denied:" DROP" %s\n", after_substitution);
 			}
 			ft_strdel(&after_substitution);
 			exit(0);
@@ -97,12 +96,12 @@ int	ft_do_process(char **command, t_env **env) {
 					ft_strdel(&new_exe);
 					execve(after_substitution, command, arr_env);
 				} else {
-					ft_fprintf(2, BOLD ITALIC GREEN_FON BLACK_TEXT "minishell:" DROP BOLD " permission denied:" DROP " %s\n", after_substitution);
+					ft_fprintf(2, GREEN_FON "minishell:" DROP BOLD " permission denied:" DROP " %s\n", after_substitution);
 				}
 				ft_strdel(&after_substitution);
 				exit(0);
 			} else {
-				ft_fprintf(2, BOLD ITALIC GREEN_FON BLACK_TEXT "minishell:" DROP BOLD " command not found:" DROP " %s\n", after_substitution);
+				ft_fprintf(2, GREEN_FON "minishell:" DROP BOLD " command not found:" DROP " %s\n", after_substitution);
 				// ft_free_after_split(arr_env);
 				// ft_strdel(arr_env);
 				// ft_error();

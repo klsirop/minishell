@@ -6,7 +6,7 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 15:54:28 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/12/06 15:08:26 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/12/06 19:09:36 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ void	ft_print_this_dir() {
 	t_env *pwd;
 
 	pwd = ft_find_in_list(g_env, "PWD");
-	ft_printf("\033[32;1m\e[38;5;161m%s\x1B[0m ", pwd->content);
+	ft_printf(BOLD PINK_TEXT "%s " DROP, pwd->content);
 }
 
 void	ft_print_promt() {
 
-	ft_print_this_dir();
-	ft_printf("%lc ", g_promt);
+	// ft_print_this_dir();
+	// ft_printf("%lc ", g_promt);
 	// ft_printf("$> ");
 }
 
@@ -40,39 +40,41 @@ static void ft_promt(int s) {
 
 int main(int argc, char **argv, char **env) {
 	// ft_printf(CLEAR);
-	int is_exit;
+	uint8_t exit_stat;
 	char *input;
 	char **semicolon_input;
 	int i;
+	int is_exit;
 
 	g_promt = PROMT_SMILE;
 
 	g_env = NULL;
 	ft_set_origin_env(&g_env, env);
+	exit_stat = 0;
 	is_exit = 0;
 	while (!is_exit) {
 		ft_print_promt();
 		if (signal(SIGINT, ft_promt)) {
 		}
 		input = ft_read_input();
-			
+
 		if (!(semicolon_input = ft_strsplit(input, ';')))
 			ft_error();
 		i = 0;
-		while (semicolon_input[i] != NULL) {
-			if (ft_do_command(semicolon_input[i], &g_env) == -1) {
-				is_exit = 1;
+		while (semicolon_input && semicolon_input[i] != NULL) {
+			is_exit = ft_do_command(semicolon_input[i], &g_env, &exit_stat);
+			if (is_exit) {
 				break ;
 			}
 			i++;
 		}
 
-
-		// ft_free_after_split(semicolon_input);
-		// ft_strdel(semicolon_input);
-		// ft_strdel(&input);
+		ft_free_after_split(semicolon_input);
+		ft_strdel(semicolon_input);
+		ft_strdel(&input);
 	}
-	//ft_free_env;
+	ft_free_env(&g_env);
 	// ft_printf(UNCLEAR);
-	return (0);
+	// ft_printf("exit_stat: %d \n", exit_stat);
+	return (exit_stat);
 }
