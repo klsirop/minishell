@@ -6,7 +6,7 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/29 16:08:02 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/11/30 17:39:08 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/12/06 20:33:58 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,8 +139,9 @@ void	ft_path_step_back(char **old_path) {
 	new_path = ft_create_str_from_split(piece_path, '/');
 	ft_strdel(old_path);
 	*old_path = ft_strconcat("/", new_path);
+	ft_strdel(&new_path);
 	ft_free_after_split(piece_path);
-	ft_strdel(piece_path);
+	free(piece_path);
 }
 
 char *ft_concat_path(char *s1, char *s2) {

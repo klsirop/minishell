@@ -6,7 +6,7 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 16:47:03 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/12/06 20:02:54 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/12/06 20:27:20 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,10 @@ int ft_do_command(char *command, t_env **myenv, uint8_t *exit_stat) {
 	else if (!ft_strcmp(command_parts[0], "setenv"))
 		ft_do_setenv(command_parts, myenv);
 	else if (!ft_strcmp(command_parts[0], "exit")) {
-		return (ft_do_exit(command_parts, exit_stat));
+		ret = ft_do_exit(command_parts, exit_stat);
+		ft_free_after_split(command_parts);
+		free(command_parts);
+		return (ret);
 	}
 	else if (!ft_strcmp(command_parts[0], "clear"))
 		ft_do_clear(command_parts);
@@ -76,6 +79,8 @@ int ft_do_command(char *command, t_env **myenv, uint8_t *exit_stat) {
 		ft_do_help(command_parts);
 	else if (!ft_strcmp(command_parts[0], "cd")) {
 		*exit_stat = ft_do_cd(command_parts, myenv);
+		ft_free_after_split(command_parts);
+		free(command_parts);
 		return (0);
 	}
 	else if (!ft_strcmp(command_parts[0], "iamgay"))
@@ -87,6 +92,6 @@ int ft_do_command(char *command, t_env **myenv, uint8_t *exit_stat) {
 	}
 	*exit_stat = 0;
 	ft_free_after_split(command_parts);
-	ft_strdel(command_parts);
+	free(command_parts);
 	return (0);
 }

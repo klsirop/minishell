@@ -6,7 +6,7 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 18:01:33 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/12/06 20:04:25 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/12/06 20:20:45 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	ft_set_origin_env(t_env **myenv, char **env) {
 			ft_error();
 		ft_list_add(myenv, parse_env[0], parse_env[1]);
 		ft_free_after_split(parse_env);
-		ft_strdel(parse_env);
+		free(parse_env);
 		i++;
 	}
 }
@@ -128,7 +128,7 @@ char *ft_substitution(char *str, t_env *env) {
 		}
 		new_str = ft_create_str_from_split(parts, ':');
 		ft_free_after_split(parts);
-		ft_strdel(parts);
+		free(parts);
 		return new_str;
 	// }
 	// new_str = ft_strdup(str);

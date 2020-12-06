@@ -6,7 +6,7 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/29 13:59:35 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/12/06 20:01:23 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/12/06 20:41:42 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,9 @@ char *ft_get_full_new_pwd(char *old_pwd, char *new_pwd, t_env *env) {///////////
 	}
 	ft_strdel(&home);
 	ft_free_after_split(piece_path);
-	ft_strdel(piece_path);
+	free(piece_path);
 	if (is_abs) {
-		tmp = ft_strconcat("/", full_pwd);
+		// tmp = ft_strconcat("/", full_pwd);
 		return full_pwd;
 	}
 	return full_pwd;
@@ -84,6 +84,7 @@ void	ft_change_oldpwd_and_pwd(t_env **env, char *new_pwd) {
 		ft_change_or_create_var(env, "OLDPWD", pwd->content);
 	full_new_pwd = ft_get_full_new_pwd(pwd->content, new_pwd, *env);
 	ft_change_or_create_var(env, "PWD", full_new_pwd);
+	ft_strdel(&full_new_pwd);
 }
 
 int		ft_cd_go_to(t_env **env, char *dest_dir) {

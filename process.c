@@ -6,7 +6,7 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/29 19:16:13 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/12/06 20:04:48 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/12/06 20:21:36 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char *ft_check_path_access(char *command, t_env *env) {
 		i++;
 	}
 	ft_free_after_split(path_parts);
-	ft_strdel(path_parts);
+	free(path_parts);
 	return (NULL);
 }
 
@@ -103,7 +103,7 @@ int	ft_do_process(char **command, t_env **env) {
 			} else {
 				ft_fprintf(2, GREEN_FON "minishell:" DROP BOLD " command not found:" DROP " %s\n", after_substitution);
 				// ft_free_after_split(arr_env);
-				// ft_strdel(arr_env);
+				// free(arr_env);
 				// ft_error();
 				ft_strdel(&after_substitution);
 				exit(0);
@@ -128,6 +128,6 @@ int	ft_do_process(char **command, t_env **env) {
 	// 	return 1;
 	wait(&pid);
 	ft_free_after_split(arr_env);
-	ft_strdel(arr_env);
+	free(arr_env);
 	return (0);
 }
