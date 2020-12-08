@@ -6,7 +6,7 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/29 19:16:13 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/12/06 20:21:36 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/12/08 17:04:26 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	ft_do_process(char **command, t_env **env) {
 		ft_error();
 	}
 	else if (pid == 0) {
-		contant_no_quotes = ft_remove_quotes(command[0]);
+		contant_no_quotes = ft_remove_all_quotes(command[0]);
 		after_substitution = ft_substitution(contant_no_quotes, *env);
 		ft_strdel(&contant_no_quotes);
 		

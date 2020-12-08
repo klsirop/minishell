@@ -6,48 +6,11 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 16:47:03 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/12/06 20:27:20 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/12/08 18:55:36 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	ft_iamgay(char **command) {
-	if (command[1] != NULL) {
-		ft_fprintf(2, GREEN_FON "minishell:" DROP BOLD " iamgay: " DROP "too many arguments\n");
-		return ;
-	}
-	if (g_promt == PROMT_GAY) {
-		ft_printf("i know\n");
-		return ;
-	}
-	ft_printf("me too 😏\n");
-	g_promt = PROMT_GAY;
-}
-
-void	ft_iambi(char **command) {
-	char *answer;
-
-	if (command[1] != NULL) {
-		ft_fprintf(2, GREEN_FON "minishell:" DROP BOLD " iambi: " DROP "too many arguments\n");
-		return ;
-	}
-	if (g_promt == PROMT_SMILE) {
-		ft_printf("i know\n");
-		return ;
-	}
-	ft_printf("are you sure? [y/n]\n");
-	if (get_next_line(0, &answer) == -1) {
-		ft_error();
-	}
-	if (!ft_strcmp(answer, "y")) {
-		g_promt = PROMT_SMILE;
-		return ;
-	}
-	if (!ft_strcmp(answer, "n")) {
-		return ;
-	}
-}
 
 int ft_do_command(char *command, t_env **myenv, uint8_t *exit_stat) {
 	char **command_parts;
@@ -87,7 +50,7 @@ int ft_do_command(char *command, t_env **myenv, uint8_t *exit_stat) {
 		ft_iamgay(command_parts);
 	else if (!ft_strcmp(command_parts[0], "iambi"))
 		ft_iambi(command_parts);
-	else {
+	else {/////////////////// add exit_stat
 		ret = ft_do_process(command_parts, myenv);
 	}
 	*exit_stat = 0;

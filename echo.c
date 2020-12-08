@@ -6,7 +6,7 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:17:11 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/12/06 20:03:12 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/12/08 17:04:04 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,7 @@ void	ft_do_echo(char **command_parts, t_env *env) {
 		else
 			is_first = 0;
 
-		no_quotes = ft_remove_quotes(command_parts[i]);
-		// check VAR
+		no_quotes = ft_remove_quotes_echo(command_parts[i]);
 		if (no_quotes[0] == '$' && no_quotes[1] != '\0') {
 			var = ft_find_var(no_quotes, env);
 			if (!ft_strcmp(var, ""))

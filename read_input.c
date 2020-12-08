@@ -6,7 +6,7 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 16:15:46 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/12/06 15:18:31 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/12/08 19:05:11 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,7 @@ char *ft_read_input() {
 	if (get_next_line(0, &input) == -1) {
 		ft_error();
 	}
+	// ft_printf("input: || |%s|\n", input);
+	// ft_printf("input len: %d\n", ft_strlen(input));
 	return input;
 }

@@ -6,7 +6,7 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/29 16:08:02 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/12/06 20:33:58 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/12/08 19:36:54 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,13 +125,13 @@ void	ft_path_step_back(char **old_path) {
 	char *new_path;
 
 	if (!ft_strcmp(*old_path, "/")) {
-		// return (ft_strdup(*old_path));
 		return ;
 	}
 	piece_path = ft_strsplit(*old_path, '/');
 	if (ft_arrlen(piece_path) == 1) {
-		// return ft_strdup("/");
 		ft_strdel(old_path);
+		ft_free_after_split(piece_path);
+		free(piece_path);
 		*old_path = ft_strdup("/");
 		return ;
 	}

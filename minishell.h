@@ -6,7 +6,7 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 15:54:39 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/12/06 19:58:49 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/12/08 18:46:58 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,15 @@ char			**ft_strsplit_sh(char const *s, char c, char c1);
 
 void	ft_set_origin_env(t_env **myenv, char **env);
 void	ft_print_env(char **command, t_env *myenv);
+char *ft_substitution(char *str, t_env *env);
+
+/*
+** set_unset_env.c
+*/
+
 void	ft_do_setenv(char **command_parts, t_env **env);
 void	ft_do_unsetenv(char **command_parts, t_env **env);
-char *ft_remove_quotes(char *str);
-char *ft_substitution(char *str, t_env *env);
+
 
 /*
 ** list.c
@@ -98,7 +103,7 @@ void	ft_list_delete_element_name(t_env **head, char *name);
 int		ft_find_list_len(t_env *head);
 
 /*
-** builtins.c
+** help.c
 */
 
 void	ft_do_help();
@@ -154,3 +159,17 @@ char					**ft_strsplit_my(char const *s, char c);
 */
 
 int		ft_do_exit(char **command, uint8_t *exit_stat);
+
+/*
+** remove_qoutes.c
+*/
+
+char *ft_remove_quotes_echo(char *str);
+char *ft_remove_all_quotes(char *str);
+
+/*
+** secret.c
+*/
+
+void	ft_iamgay(char **command);
+void	ft_iambi(char **command);
