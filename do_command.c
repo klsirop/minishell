@@ -6,7 +6,7 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 16:47:03 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/12/08 18:55:36 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/12/08 20:34:12 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,11 @@ int ft_do_command(char *command, t_env **myenv, uint8_t *exit_stat) {
 		ft_iamgay(command_parts);
 	else if (!ft_strcmp(command_parts[0], "iambi"))
 		ft_iambi(command_parts);
-	else {/////////////////// add exit_stat
-		ret = ft_do_process(command_parts, myenv);
+	else {
+		ft_do_process(command_parts, myenv, exit_stat);
+		ft_free_after_split(command_parts);
+		free(command_parts);
+		return (0);
 	}
 	*exit_stat = 0;
 	ft_free_after_split(command_parts);

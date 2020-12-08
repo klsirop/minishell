@@ -6,7 +6,7 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 15:54:39 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/12/08 18:46:58 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/12/08 20:22:22 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,9 @@
 #define GREEN_FON "\e[48;5;78m\e[38;5;16m"
 #define BLUE_FON "\e[48;5;123m\e[38;5;16m"
 #define PINK_TEXT "\e[38;5;161m"
+
+#define PERMISSION_DENIED 126
+#define NOT_EXISTS 127
 
 // #define BLACK_TEXT "\e[38;5;16m"
 
@@ -146,7 +149,7 @@ char		*ft_chrtoa_ostssrk(unsigned int chr);
 ** process.c
 */
 
-int		ft_do_process(char **command_parts, t_env **env);
+int	ft_do_process(char **command, t_env **env, uint8_t *exit_stat);
 
 /*
 ** mysplit.c

@@ -6,7 +6,7 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/29 19:16:13 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/12/08 17:04:26 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/12/08 20:34:08 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,11 @@ char *ft_check_path_access(char *command, t_env *env) {
 	return (NULL);
 }
 
-int	ft_do_process(char **command, t_env **env) {
+// free: arr_env, after_substitution
+// exit_stat - what returns execve or else
+
+// no exists exec - 127
+int	ft_do_process(char **command, t_env **env, uint8_t *exit_stat) {
 	pid_t pid;
 	pid_t wpid;
 	char **arr_env;
@@ -75,57 +79,47 @@ int	ft_do_process(char **command, t_env **env) {
 		after_substitution = ft_substitution(contant_no_quotes, *env);
 		ft_strdel(&contant_no_quotes);
 		
-		// execve(command[0], command, arr_env);
 		if (!access(after_substitution, 0)) { //exists
 			if (!access(after_substitution, 1)) { //execute
 				execve(after_substitution, command, arr_env);
-				
 			} else {
-				ft_fprintf(2, GREEN_FON "minishell:" DROP BOLD " permission denied:" DROP" %s\n", after_substitution);
+				*exit_stat = PERMISSION_DENIED;
+				ft_fprintf(2, GREEN_FON "minishell:" DROP BOLD " permission denied: " DROP "%s\n", after_substitution);
 			}
 			ft_strdel(&after_substitution);
+			ft_free_after_split(arr_env);
+			free(arr_env);
+			arr_env = NULL;
 			exit(0);
-				// ft_error();
-			// }
 		} else {
-			new_exe = ft_check_path_access(after_substitution, *env);
+			new_exe = ft_check_path_access(after_substitution, *env);////
 			if (new_exe) {
-				if (!access(new_exe, 1)) {
+				if (!access(new_exe, 1)) { //execute
 					ft_strdel(&(after_substitution));
 					after_substitution = ft_strdup(new_exe);
 					ft_strdel(&new_exe);
 					execve(after_substitution, command, arr_env);
 				} else {
+					*exit_stat = PERMISSION_DENIED;
 					ft_fprintf(2, GREEN_FON "minishell:" DROP BOLD " permission denied:" DROP " %s\n", after_substitution);
 				}
 				ft_strdel(&after_substitution);
+				ft_free_after_split(arr_env);
+				free(arr_env);
+				arr_env = NULL;
 				exit(0);
-			} else {
+			} else { //not exists
+				*exit_stat = NOT_EXISTS;
 				ft_fprintf(2, GREEN_FON "minishell:" DROP BOLD " command not found:" DROP " %s\n", after_substitution);
-				// ft_free_after_split(arr_env);
-				// free(arr_env);
-				// ft_error();
 				ft_strdel(&after_substitution);
+				ft_free_after_split(arr_env);
+				free(arr_env);
+				arr_env = NULL;
+				ft_strdel(&new_exe);
 				exit(0);
 			}
-			// check acces by each part of path and launch with concat part_path+command[0]
 		}
-		ft_strdel(&after_substitution);
 	}
-	else {
-		// wpid = waitpid(pid, &status, WUNTRACED);
-
-		// waitpid(pid, &status, 0);
-		// if (status ==)
-		//  wait(&pid);
-		// status = 0;
-		// while (!WIFEXITED(status) && !WIFSIGNALED(status)) {
-		// 	wpid = waitpid(pid, &status, WUNTRACED);
-		// 	ft_printf("wpid=%d\n", wpid);
-		// }
-	}
-	// if (status == 1)
-	// 	return 1;
 	wait(&pid);
 	ft_free_after_split(arr_env);
 	free(arr_env);
