@@ -6,7 +6,7 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 15:54:28 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/12/08 19:08:29 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/12/08 20:44:32 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,6 @@ int main(int argc, char **argv, char **env) {
 	}
 	ft_free_env(&g_env);
 	// ft_printf(UNCLEAR);
-	ft_printf("exit_stat: %d \n", exit_stat);
+	// ft_printf("exit_stat: %d \n", exit_stat);
 	return (exit_stat);
 }
