@@ -6,16 +6,18 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 16:35:59 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/12/01 21:23:34 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/12/08 21:09:01 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_error() {
+void	ft_error(void)
+{
 	exit(1);
 }
 
-void	ft_malloc_error() {
+void	ft_malloc_error(void)
+{
 	exit(1);
 }

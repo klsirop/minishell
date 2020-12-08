@@ -6,7 +6,7 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 18:47:12 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/12/08 17:46:34 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/12/08 21:32:28 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,18 @@ void	ft_list_add(t_env **head, char *name, char *content)
 	}
 }
 
-t_env		*ft_find_in_list(t_env *env, char *name) {
+t_env	*ft_find_in_list(t_env *env, char *name)
+{
 	t_env *tmp;
 
 	tmp = env;
-	while (tmp) {
+	while (tmp)
+	{
 		if (!ft_strcmp(tmp->name, name))
-			return tmp;
+			return (tmp);
 		tmp = tmp->next;
 	}
-	return NULL;
+	return (NULL);
 }
 
 void	ft_list_delete_element_name(t_env **head, char *name)
@@ -56,14 +58,14 @@ void	ft_list_delete_element_name(t_env **head, char *name)
 
 	prev = NULL;
 	tmp = *head;
-	while (tmp) {
-		if (!ft_strcmp(tmp->name, name)) {
-			if (prev == NULL) {
+	while (tmp)
+	{
+		if (!ft_strcmp(tmp->name, name))
+		{
+			if (prev == NULL)
 				*head = tmp->next;
-				//delete
-			} else {
+			else
 				prev->next = tmp->next;
-			}
 			ft_strdel(&(tmp->name));
 			ft_strdel(&(tmp->content));
 			free(tmp);
@@ -73,7 +75,6 @@ void	ft_list_delete_element_name(t_env **head, char *name)
 		prev = tmp;
 		tmp = tmp->next;
 	}
-
 }
 
 int		ft_find_list_len(t_env *head)

@@ -6,7 +6,7 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 16:44:20 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/12/06 15:35:36 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/12/08 21:27:58 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,12 @@ void	ft_free_after_split(char **arr)
 	}
 }
 
-void	ft_free_env(t_env **env) {
+void	ft_free_env(t_env **env)
+{
 	t_env *tmp;
 
-	while (*env) {
+	while (*env)
+	{
 		tmp = *env;
 		*env = (*env)->next;
 		ft_strdel(&(tmp->name));

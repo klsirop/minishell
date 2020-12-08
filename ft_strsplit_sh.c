@@ -6,7 +6,7 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 17:10:36 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/11/30 21:43:35 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/12/08 21:28:30 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ char			**ft_strsplit_sh(char const *s, char c, char c1)
 
 	i = 0;
 	if (!s || !c || !c1 ||
-		!(ptr = (char **)malloc((ft_count(s, c) + ft_count(s, c1) + 1) * sizeof(char *))))
+		!(ptr = (char **)malloc((ft_count(s, c) +
+			ft_count(s, c1) + 1) * sizeof(char *))))
 		return (NULL);
 	word = (char *)s;
 	while (*s)

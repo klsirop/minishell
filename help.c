@@ -6,29 +6,14 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 18:18:15 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/12/08 18:42:40 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/12/08 21:30:39 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_do_help(char **command) {
-	if (command[1] == NULL) {
-		ft_printf(ITALIC BOLD BLUE_FON "usage:" DROP "\n");
-		ft_printf("\t" BOLD "echo " DROP "[argc]\n");
-		ft_printf("\t" BOLD "env" DROP "\n");
-		ft_printf("\t" BOLD "setenv " DROP "name var\n");
-		ft_printf("\t" BOLD "unsetenv " DROP "names\n");
-		ft_printf("\t" BOLD "clear" DROP "\n");
-		ft_printf("\t" BOLD "help " DROP "[command_name]\n");
-		ft_printf("\t" BOLD "cd " DROP "[argc]\n");
-		ft_printf("\t" BOLD "exit" DROP " [exit_code]\n");
-		return ;
-	}
-	if (command[1] != NULL && command[2] != NULL) {
-		ft_fprintf(2, GREEN_FON "minishell:" DROP BOLD " help:" DROP " too many arguments\n");
-		return ;
-	}
+void	ft_do_help_arg(char **command)
+{
 	if (!ft_strcmp(command[1], "echo"))
 		ft_printf(ITALIC BOLD BLUE_FON "usage:" DROP "\n" BOLD "\techo " DROP "[args]\n");
 	else if (!ft_strcmp(command[1], "env"))
@@ -48,4 +33,27 @@ void	ft_do_help(char **command) {
 	else {
 		ft_printf(GREEN_FON "minishell:" DROP BOLD " help: " DROP "unknown argument\n");
 	}
+}
+
+void	ft_do_help(char **command)
+{
+	if (command[1] == NULL)
+	{
+		ft_printf(ITALIC BOLD BLUE_FON "usage:" DROP "\n");
+		ft_printf("\t" BOLD "echo " DROP "[argc]\n");
+		ft_printf("\t" BOLD "env" DROP "\n");
+		ft_printf("\t" BOLD "setenv " DROP "name var\n");
+		ft_printf("\t" BOLD "unsetenv " DROP "names\n");
+		ft_printf("\t" BOLD "clear" DROP "\n");
+		ft_printf("\t" BOLD "help " DROP "[command_name]\n");
+		ft_printf("\t" BOLD "cd " DROP "[argc]\n");
+		ft_printf("\t" BOLD "exit" DROP " [exit_code]\n");
+		return ;
+	}
+	if (command[1] != NULL && command[2] != NULL)
+	{
+		ft_fprintf(2, GREEN_FON "minishell:" DROP BOLD " help:" DROP " too many arguments\n");
+		return ;
+	}
+	ft_do_help_arg(command);	
 }

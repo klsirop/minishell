@@ -6,14 +6,15 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 15:54:28 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/12/08 20:44:32 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/12/08 21:32:54 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <wchar.h>
 
-void	ft_print_this_dir() {
+void	ft_print_this_dir()
+{
 	t_env *pwd;
 
 	pwd = ft_find_in_list(g_env, "PWD");
@@ -21,20 +22,22 @@ void	ft_print_this_dir() {
 		ft_printf(BOLD PINK_TEXT "%s " DROP, pwd->content);
 }
 
-void	ft_print_promt() {
-
+void	ft_print_promt()
+{
 	ft_print_this_dir();
 	ft_printf("%lc ", g_promt);
 	// ft_printf("$> ");
 }
 
-static void ft_promt(int s) {
+static void ft_promt(int s)
+{
 	ft_printf("\n");
 	ft_print_promt();
 	s = 0;
 }
 
-int main(int argc, char **argv, char **env) {
+int main(int argc, char **argv, char **env)
+{
 	// ft_printf(CLEAR);
 	uint8_t exit_stat;
 	char *input;
@@ -43,7 +46,6 @@ int main(int argc, char **argv, char **env) {
 	int is_exit;
 
 	g_promt = PROMT_SMILE;
-
 	g_env = NULL;
 	ft_set_origin_env(&g_env, env);
 	exit_stat = 0;

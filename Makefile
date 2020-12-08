@@ -6,7 +6,7 @@
 #    By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/01 17:44:02 by klsirop           #+#    #+#              #
-#    Updated: 2020/12/08 18:46:20 by volyvar-         ###   ########.fr        #
+#    Updated: 2020/12/08 21:37:14 by volyvar-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ LIBFT = ./libft/libft.a
 
 
 SRC = 	main.c read_input.c error.c free.c do_command.c ft_strsplit_sh.c \
-		help.c env.c list.c cd.c manage_path.c promt.c process.c mysplit.c \
+		help.c env.c list.c cd.c manage_path.c process.c mysplit.c \
 		exit.c echo.c remove_quotes.c set_unset_env.c secret.c
 
 OBJ = $(SRC:.c=.o)
