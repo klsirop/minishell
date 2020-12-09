@@ -6,7 +6,7 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 15:54:39 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/12/08 20:22:22 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/12/09 12:32:16 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
+#include <signal.h>
 
 #define CLEAR "\033[?1049h\033[H"
 #define UNCLEAR "\033[?1049l"
@@ -47,6 +48,7 @@ typedef struct	s_env {
 }				t_env;
 
 t_env *g_env;
+pid_t g_pid;
 
 /*
 ** read_input.c

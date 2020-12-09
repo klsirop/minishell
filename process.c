@@ -6,7 +6,7 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/29 19:16:13 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/12/08 20:34:08 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/12/09 14:12:46 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,6 @@ char *ft_check_path_access(char *command, t_env *env) {
 
 // no exists exec - 127
 int	ft_do_process(char **command, t_env **env, uint8_t *exit_stat) {
-	pid_t pid;
-	pid_t wpid;
 	char **arr_env;
 	int status;
 	char *new_exe;
@@ -70,11 +68,11 @@ int	ft_do_process(char **command, t_env **env, uint8_t *exit_stat) {
 
 	arr_env = NULL;
 	ft_create_arr_env(&arr_env, *env);
-	pid = fork();
-	if (pid == -1) {
+	g_pid = fork();
+	if (g_pid == -1) {
 		ft_error();
 	}
-	else if (pid == 0) {
+	else if (g_pid == 0) {
 		contant_no_quotes = ft_remove_all_quotes(command[0]);
 		after_substitution = ft_substitution(contant_no_quotes, *env);
 		ft_strdel(&contant_no_quotes);
@@ -110,7 +108,8 @@ int	ft_do_process(char **command, t_env **env, uint8_t *exit_stat) {
 				exit(0);
 			} else { //not exists
 				*exit_stat = NOT_EXISTS;
-				ft_fprintf(2, GREEN_FON "minishell:" DROP BOLD " command not found:" DROP " %s\n", after_substitution);
+				ft_fprintf(2, "\a" GREEN_FON "mminishell:" DROP BOLD " command not found:" DROP " %s\n", after_substitution);
+				// ft_printf("\b\b ");
 				ft_strdel(&after_substitution);
 				ft_free_after_split(arr_env);
 				free(arr_env);
@@ -120,7 +119,9 @@ int	ft_do_process(char **command, t_env **env, uint8_t *exit_stat) {
 			}
 		}
 	}
-	wait(&pid);
+	// ft_printf("do: %d\n", g_pid);
+	wait(&status);
+	// ft_printf("posle: %d\n", g_pid);
 	ft_free_after_split(arr_env);
 	free(arr_env);
 	return (0);
