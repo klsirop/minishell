@@ -6,7 +6,7 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 18:01:33 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/12/08 17:49:47 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/12/13 15:20:46 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	ft_print_env(char **command, t_env *myenv) {
 	t_env *tmp;
 
 	if (command[1] != NULL) {
-		ft_fprintf(2, GREEN_FON "minishell:" DROP BOLD " env: " DROP "too many arguments\n");
+		ft_fprintf(2, "\a" GREEN_FON "minishell:" DROP BOLD " env: " DROP "too many arguments\n");
 		return ;
 	}
 

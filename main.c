@@ -6,7 +6,7 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 15:54:28 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/12/09 14:01:55 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/12/13 15:27:04 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void ft_promt(int s)
 {
 	// kill(g_pid, 9);
 	// ft_printf("ctrlc\n");
-	// ft_printf("func g_pid: %d\n", g_pid);
+	ft_printf("func g_pid: %d\n", g_pid);
 	// ft_print_promt();
 	// ft_printf("s: %d\n", s);
 	if (g_pid != 0) {

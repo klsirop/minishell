@@ -6,7 +6,7 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 18:46:29 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/12/08 21:08:24 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/12/13 15:21:09 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_iamgay(char **command)
 {
 	if (command[1] != NULL)
 	{
-		ft_fprintf(2, GREEN_FON "minishell:" DROP BOLD
+		ft_fprintf(2, "\a" GREEN_FON "minishell:" DROP BOLD
 						" iamgay: " DROP "too many arguments\n");
 		return ;
 	}
@@ -35,7 +35,7 @@ void	ft_iambi(char **command)
 
 	if (command[1] != NULL)
 	{
-		ft_fprintf(2, GREEN_FON "minishell:" DROP BOLD
+		ft_fprintf(2, "\a" GREEN_FON "minishell:" DROP BOLD
 					" iambi: " DROP "too many arguments\n");
 		return ;
 	}

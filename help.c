@@ -6,7 +6,7 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 18:18:15 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/12/08 21:30:39 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/12/13 15:20:56 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	ft_do_help(char **command)
 	}
 	if (command[1] != NULL && command[2] != NULL)
 	{
-		ft_fprintf(2, GREEN_FON "minishell:" DROP BOLD " help:" DROP " too many arguments\n");
+		ft_fprintf(2, "\a" GREEN_FON "minishell:" DROP BOLD " help:" DROP " too many arguments\n");
 		return ;
 	}
 	ft_do_help_arg(command);	

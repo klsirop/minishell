@@ -6,7 +6,7 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/29 13:59:35 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/12/08 19:43:11 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/12/13 15:20:39 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,14 +100,14 @@ int		ft_cd_go_to(t_env **env, char *dest_dir) {
 	if (chdir(new_path) == -1) {
 		if (!lstat(new_path, &status)) {
 			if (S_ISDIR(status.st_mode & S_IFMT))
-				ft_fprintf(2, GREEN_FON "minishell:" DROP BOLD " cd: " DROP "permission denied:" DROP " %s\n", dest_dir);
+				ft_fprintf(2, "\a" GREEN_FON "minishell:" DROP BOLD " cd: " DROP "permission denied:" DROP " %s\n", dest_dir);
 			else if (S_ISLNK(status.st_mode & S_IFMT))
-				ft_fprintf(2, GREEN_FON "minishell:" DROP BOLD " cd: " DROP "too many levels of symbolic links:" DROP " %s\n", dest_dir);
+				ft_fprintf(2, "\a" GREEN_FON "minishell:" DROP BOLD " cd: " DROP "too many levels of symbolic links:" DROP " %s\n", dest_dir);
 			else
-				ft_fprintf(2, GREEN_FON "minishell:" DROP BOLD " cd: " DROP "not a directory: %s\n", dest_dir);
+				ft_fprintf(2, "\a" GREEN_FON "minishell:" DROP BOLD " cd: " DROP "not a directory: %s\n", dest_dir);
 		}
 		else
-			ft_fprintf(2, GREEN_FON "minishell:" DROP BOLD " cd: " DROP "no such file or directory: %s\n", dest_dir);
+			ft_fprintf(2, "\a" GREEN_FON "minishell:" DROP BOLD " cd: " DROP "no such file or directory: %s\n", dest_dir);
 		ft_strdel(&new_path);
 		return (1);
 	}

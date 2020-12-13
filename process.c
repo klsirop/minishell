@@ -6,7 +6,7 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/29 19:16:13 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/12/09 14:12:46 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/12/13 15:21:04 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	ft_do_process(char **command, t_env **env, uint8_t *exit_stat) {
 				execve(after_substitution, command, arr_env);
 			} else {
 				*exit_stat = PERMISSION_DENIED;
-				ft_fprintf(2, GREEN_FON "minishell:" DROP BOLD " permission denied: " DROP "%s\n", after_substitution);
+				ft_fprintf(2, "\a" GREEN_FON "minishell:" DROP BOLD " permission denied: " DROP "%s\n", after_substitution);
 			}
 			ft_strdel(&after_substitution);
 			ft_free_after_split(arr_env);
@@ -99,7 +99,7 @@ int	ft_do_process(char **command, t_env **env, uint8_t *exit_stat) {
 					execve(after_substitution, command, arr_env);
 				} else {
 					*exit_stat = PERMISSION_DENIED;
-					ft_fprintf(2, GREEN_FON "minishell:" DROP BOLD " permission denied:" DROP " %s\n", after_substitution);
+					ft_fprintf(2, "\a" GREEN_FON "minishell:" DROP BOLD " permission denied:" DROP " %s\n", after_substitution);
 				}
 				ft_strdel(&after_substitution);
 				ft_free_after_split(arr_env);
@@ -108,8 +108,7 @@ int	ft_do_process(char **command, t_env **env, uint8_t *exit_stat) {
 				exit(0);
 			} else { //not exists
 				*exit_stat = NOT_EXISTS;
-				ft_fprintf(2, "\a" GREEN_FON "mminishell:" DROP BOLD " command not found:" DROP " %s\n", after_substitution);
-				// ft_printf("\b\b ");
+				ft_fprintf(2, "\a" GREEN_FON "minishell:" DROP BOLD " command not found:" DROP " %s\n", after_substitution);
 				ft_strdel(&after_substitution);
 				ft_free_after_split(arr_env);
 				free(arr_env);

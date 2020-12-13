@@ -6,7 +6,7 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 17:49:08 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/12/08 21:36:50 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/12/13 15:21:19 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,13 @@ void	ft_do_setenv(char **command_parts, t_env **env)
 	}
 	if (!ft_is_valid_var_name(command_parts[1]))
 	{
-		ft_fprintf(2, GREEN_FON "minishell:" DROP BOLD " setenv: "
+		ft_fprintf(2, "\a" GREEN_FON "minishell:" DROP BOLD " setenv: "
 						DROP "not an identifier: %s\n", command_parts[1]);
 		return ;
 	}
 	if (command_parts[2] == NULL || command_parts[3] != NULL)
 	{
-		ft_fprintf(2, BOLD ITALIC BLUE_FON "usage:" DROP "\n"
+		ft_fprintf(2, "\a" BOLD ITALIC BLUE_FON "usage:" DROP "\n"
 						BOLD "\tsetenv " DROP "name value\n");
 		return ;
 	}
@@ -65,7 +65,7 @@ void	ft_do_unsetenv(char **command_parts, t_env **env) {
 
 	if (command_parts[1] == NULL)
 	{
-		ft_fprintf(2, BOLD ITALIC BLUE_FON "usage:" DROP
+		ft_fprintf(2, "\a" BOLD ITALIC BLUE_FON "usage:" DROP
 						"\n" BOLD "\tunsetenv " DROP "name\n");
 		return ;
 	}
