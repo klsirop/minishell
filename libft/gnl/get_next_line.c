@@ -6,7 +6,7 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 13:14:01 by jmaynard          #+#    #+#             */
-/*   Updated: 2020/11/28 16:36:50 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/12/13 19:24:55 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,9 @@ char	*ft_n(const char *s)
 	if (!s)
 		return (NULL);
 	while (*s != '\n' && *s != '\0' && *s != EOF)
+	{
 		s++;
+	}
 	if (*s == '\0' || *s == EOF)
 		return (NULL);
 	return ((char *)s);

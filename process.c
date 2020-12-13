@@ -6,121 +6,117 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/29 19:16:13 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/12/13 15:21:04 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/12/13 19:12:20 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_create_arr_env(char ***arr, t_env *env) {
-	int len;
-	int i;
-	t_env *tmp;
-	
-	len = ft_find_list_len(env);
-	(*arr) = (char **)malloc(sizeof(char *) * (len + 1));
-	i = 0;
-	tmp = env;
-	while (i < len) {
-		(*arr)[i] = ft_strconcat_delim(tmp->name, tmp->content, "=");
-		tmp = tmp->next;
-		i++;
+void	ft_file_exists(char **after_substitution, char **command,
+						char ***arr_env, uint8_t *exit_stat)
+{
+	if (!access(*after_substitution, 1))
+		execve(*after_substitution, command, *arr_env);
+	else
+	{
+		*exit_stat = PERMISSION_DENIED;
+		ft_fprintf(2, "\a" GREEN_FON "minishell:" DROP BOLD
+				" permission denied: " DROP "%s\n", *after_substitution);
 	}
-	(*arr)[i] = NULL;
+	ft_strdel(after_substitution);
+	ft_free_after_split(*arr_env);
+	free(*arr_env);
+	*arr_env = NULL;
+	exit(0);
 }
 
-char *ft_check_path_access(char *command, t_env *env) {
-	t_env *path;
-	char **path_parts;
-	int i;
-	char *new_exe;
+int		ft_exists_in_path(char **new_exe, char **after_substitution,
+							char **command, char **arr_env)
+{
+	uint8_t exit_stat;
 
-	path = ft_find_in_list(env, "PATH");
-	if (!path || !(path->content))
-		return (NULL);
-	path_parts = ft_strsplit(path->content, ':');
-	i = 0;
-	while (path_parts[i]) {
-		new_exe = ft_concat_path(path_parts[i], command);
-		if (!access(new_exe, 0)) {
-			ft_free_after_split(path_parts);
-			ft_strdel(path_parts);
-			return new_exe;
-		}
+	exit_stat = -1;
+	if (!access(*new_exe, 1))
+	{
+		ft_strdel(after_substitution);
+		*after_substitution = ft_strdup(*new_exe);
+		ft_strdel(new_exe);
+		execve(*after_substitution, command, arr_env);
+	}
+	else
+	{
+		exit_stat = PERMISSION_DENIED;
+		ft_fprintf(2, "\a" GREEN_FON "minishell:" DROP BOLD
+					" permission denied:" DROP " %s\n", *after_substitution);
+	}
+	return (exit_stat);
+}
+
+int		ft_file_not_exists(char **after_substitution, char **command,
+							char ***arr_env, t_env **env)
+{
+	uint8_t exit_stat;
+	char	*new_exe;
+	int		ex;
+
+	exit_stat = -1;
+	new_exe = ft_check_path_access(*after_substitution, *env);
+	if (new_exe)
+	{
+		ex = ft_exists_in_path(&new_exe, after_substitution, command, *arr_env);
+		if (ex != -1)
+			exit_stat = ex;
+	}
+	else
+	{
+		exit_stat = NOT_EXISTS;
+		ft_fprintf(2, "\a" GREEN_FON "minishell:" DROP
+			BOLD " command not found:" DROP " %s\n", *after_substitution);
 		ft_strdel(&new_exe);
-		i++;
 	}
-	ft_free_after_split(path_parts);
-	free(path_parts);
-	return (NULL);
+	ft_strdel(after_substitution);
+	ft_free_after_split(*arr_env);
+	free(*arr_env);
+	*arr_env = NULL;
+	return (exit_stat);
 }
 
-// free: arr_env, after_substitution
-// exit_stat - what returns execve or else
+void	ft_child(char **command, t_env **env,
+				char **arr_env, uint8_t *exit_stat)
+{
+	char	*contant_no_quotes;
+	char	*after_substitution;
+	int		ex;
 
-// no exists exec - 127
-int	ft_do_process(char **command, t_env **env, uint8_t *exit_stat) {
-	char **arr_env;
-	int status;
-	char *new_exe;
-	char *contant_no_quotes;
-	char *after_substitution;
+	contant_no_quotes = ft_remove_all_quotes(command[0]);
+	after_substitution = ft_substitution(contant_no_quotes, *env);
+	ft_strdel(&contant_no_quotes);
+	if (!access(after_substitution, 0))
+		ft_file_exists(&after_substitution, command, &arr_env, exit_stat);
+	else
+	{
+		ex = ft_file_not_exists(&after_substitution, command, &arr_env, env);
+		if (ex != -1)
+			*exit_stat = ex;
+		exit(0);
+	}
+}
+
+int		ft_do_process(char **command, t_env **env, uint8_t *exit_stat)
+{
+	char	**arr_env;
+	int		status;
 
 	arr_env = NULL;
 	ft_create_arr_env(&arr_env, *env);
 	g_pid = fork();
-	if (g_pid == -1) {
+	if (g_pid == -1)
 		ft_error();
+	else if (g_pid == 0)
+	{
+		ft_child(command, env, arr_env, exit_stat);
 	}
-	else if (g_pid == 0) {
-		contant_no_quotes = ft_remove_all_quotes(command[0]);
-		after_substitution = ft_substitution(contant_no_quotes, *env);
-		ft_strdel(&contant_no_quotes);
-		
-		if (!access(after_substitution, 0)) { //exists
-			if (!access(after_substitution, 1)) { //execute
-				execve(after_substitution, command, arr_env);
-			} else {
-				*exit_stat = PERMISSION_DENIED;
-				ft_fprintf(2, "\a" GREEN_FON "minishell:" DROP BOLD " permission denied: " DROP "%s\n", after_substitution);
-			}
-			ft_strdel(&after_substitution);
-			ft_free_after_split(arr_env);
-			free(arr_env);
-			arr_env = NULL;
-			exit(0);
-		} else {
-			new_exe = ft_check_path_access(after_substitution, *env);////
-			if (new_exe) {
-				if (!access(new_exe, 1)) { //execute
-					ft_strdel(&(after_substitution));
-					after_substitution = ft_strdup(new_exe);
-					ft_strdel(&new_exe);
-					execve(after_substitution, command, arr_env);
-				} else {
-					*exit_stat = PERMISSION_DENIED;
-					ft_fprintf(2, "\a" GREEN_FON "minishell:" DROP BOLD " permission denied:" DROP " %s\n", after_substitution);
-				}
-				ft_strdel(&after_substitution);
-				ft_free_after_split(arr_env);
-				free(arr_env);
-				arr_env = NULL;
-				exit(0);
-			} else { //not exists
-				*exit_stat = NOT_EXISTS;
-				ft_fprintf(2, "\a" GREEN_FON "minishell:" DROP BOLD " command not found:" DROP " %s\n", after_substitution);
-				ft_strdel(&after_substitution);
-				ft_free_after_split(arr_env);
-				free(arr_env);
-				arr_env = NULL;
-				ft_strdel(&new_exe);
-				exit(0);
-			}
-		}
-	}
-	// ft_printf("do: %d\n", g_pid);
 	wait(&status);
-	// ft_printf("posle: %d\n", g_pid);
 	ft_free_after_split(arr_env);
 	free(arr_env);
 	return (0);

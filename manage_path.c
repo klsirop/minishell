@@ -6,129 +6,79 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/29 16:08:02 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/12/08 19:36:54 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/12/13 19:04:56 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*ft_strconcat(char *s1, char *s2)
+void	ft_create_str_help(char **str, char **arr, char c)
 {
-	int		len1;
-	int		len2;
 	int		i;
 	int		j;
-	char	*res;
+	int		k;
 
-	len1 = ft_strlen(s1);
-	len2 = ft_strlen(s2);
-	if (!(res = (char *)malloc(sizeof(char) * (len1 + len2 + 1))))
-		ft_malloc_error();
-	i = 0;
-	while (i < len1)
-	{
-		res[i] = s1[i];
-		i++;
-	}
-	j = 0;
-	while (j < len2)
-	{
-		res[i] = s2[j];
-		i++;
-		j++;
-	}
-	res[i] = '\0';
-	return (res);
-}
-
-/*
-** create char *str from char **arr
-** and separate each row by 'c'
-** for example: we have arr[0] = /abc, arr[1] = bcd
-** then str= /abc:bcd
-*/
-char *ft_create_str_from_split(char **arr, char c) {
-	int len;
-	int i;
-	char *str;
-	int j;
-	int k;
-
-	len = 0;
-	i = 0;
-	while (arr[i] != NULL) {
-		len += ft_strlen(arr[i]);
-		i++;
-	}
-	str = (char *)malloc(sizeof(char) * (len + i + 1));
 	i = 0;
 	k = 0;
-	while (arr[i] != NULL) {
+	while (arr[i] != NULL)
+	{
 		j = 0;
-		while (arr[i][j] != '\0') {
-			str[k] = arr[i][j];
+		while (arr[i][j] != '\0')
+		{
+			(*str)[k] = arr[i][j];
 			j++;
 			k++;
 		}
 		i++;
-		if (arr[i] != NULL) {
-			str[k] = c;
+		if (arr[i] != NULL)
+		{
+			(*str)[k] = c;
 			k++;
 		}
 	}
-	str[k] = '\0';
-	return str;
+	(*str)[k] = '\0';
 }
 
-/*
-** return 's1/s2'
-*/
-char	*ft_strconcat_delim(char *s1, char *s2, char *delim)
+char	*ft_create_str_from_split(char **arr, char c)
 {
-	char *tmp;
-	char *full;
+	int		len;
+	int		i;
+	char	*str;
 
-	tmp = ft_strconcat(s1, delim);
-	full = ft_strconcat(tmp, s2);
-	ft_strdel(&tmp);
-	return (full);
+	len = 0;
+	i = 0;
+	while (arr[i] != NULL)
+	{
+		len += ft_strlen(arr[i]);
+		i++;
+	}
+	str = (char *)malloc(sizeof(char) * (len + i + 1));
+	ft_create_str_help(&str, arr, c);
+	return (str);
 }
 
-int	ft_arrlen(char **arr) {
+int		ft_arrlen(char **arr)
+{
 	int i;
 
 	i = 0;
-	while (arr[i]) {
+	while (arr[i])
+	{
 		i++;
 	}
 	return (i);
 }
 
-void	ft_print_arr(char **arr) {
-	int i;
-
-	i = 0;
-	while (arr[i]) {
-		ft_printf("%s\n", arr[i]);
-		i++;
-	}
-}
-
-/*
-** old_path = '/' ->became /
-** old_path = '/usr' ->became /
-** old_path = '/usr/bin' -> became /usr
-** old_path = '/usr/bin/ -> became /usr
-*/
-void	ft_path_step_back(char **old_path) {
+void	ft_path_step_back(char **old_path)
+{
 	char **piece_path;
 	char *new_path;
 
-	if (!ft_strcmp(*old_path, "/")) {
+	if (!ft_strcmp(*old_path, "/"))
 		return ;
-	}
 	piece_path = ft_strsplit(*old_path, '/');
-	if (ft_arrlen(piece_path) == 1) {
+	if (ft_arrlen(piece_path) == 1)
+	{
 		ft_strdel(old_path);
 		ft_free_after_split(piece_path);
 		free(piece_path);
@@ -142,18 +92,4 @@ void	ft_path_step_back(char **old_path) {
 	ft_strdel(&new_path);
 	ft_free_after_split(piece_path);
 	free(piece_path);
-}
-
-char *ft_concat_path(char *s1, char *s2) {
-	char *path;
-	char *tmp;
-
-	if (!s1 || !s2)
-		return (NULL);
-	if (s1[ft_strlen(s1) - 1] == '/') {
-		path = ft_strconcat(s1, s2);
-	} else {
-		path = ft_strconcat_delim(s1, s2, "/");
-	}
-	return (path);
 }

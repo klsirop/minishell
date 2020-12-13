@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_input.c                                       :+:      :+:    :+:   */
+/*   promt.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/28 16:15:46 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/12/13 17:12:59 by volyvar-         ###   ########.fr       */
+/*   Created: 2020/12/13 18:23:40 by volyvar-          #+#    #+#             */
+/*   Updated: 2020/12/13 18:25:03 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*ft_read_input(void)
+void		ft_print_this_dir(void)
 {
-	char *input;
+	t_env *pwd;
 
-	input = NULL;
-	if (get_next_line(0, &input) == -1)
-	{
-		ft_error();
-	}
-	return (input);
+	pwd = ft_find_in_list(g_env, "PWD");
+	if (pwd && pwd->content)
+		ft_printf(BOLD_PINK "%s " DROP, pwd->content);
+}
+
+void		ft_print_promt(void)
+{
+	ft_print_this_dir();
+	ft_printf("%lc ", g_promt);
 }
