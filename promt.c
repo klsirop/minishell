@@ -5,14 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/13 18:23:40 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/12/13 18:25:03 by volyvar-         ###   ########.fr       */
+/*   Created: 2020/12/14 14:40:45 by volyvar-          #+#    #+#             */
+/*   Updated: 2020/12/14 14:41:54 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void		ft_print_this_dir(void)
+void	ft_print_this_dir(void)
 {
 	t_env *pwd;
 
@@ -21,7 +21,7 @@ void		ft_print_this_dir(void)
 		ft_printf(BOLD_PINK "%s " DROP, pwd->content);
 }
 
-void		ft_print_promt(void)
+void	ft_print_promt(void)
 {
 	ft_print_this_dir();
 	ft_printf("%lc ", g_promt);
