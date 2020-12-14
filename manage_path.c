@@ -6,7 +6,7 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/29 16:08:02 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/12/13 19:04:56 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/12/14 16:39:25 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ char	*ft_create_str_from_split(char **arr, char c)
 		len += ft_strlen(arr[i]);
 		i++;
 	}
-	str = (char *)malloc(sizeof(char) * (len + i + 1));
+	if (!(str = (char *)malloc(sizeof(char) * (len + i + 1))))
+		ft_malloc_error();
 	ft_create_str_help(&str, arr, c);
 	return (str);
 }
@@ -82,7 +83,8 @@ void	ft_path_step_back(char **old_path)
 		ft_strdel(old_path);
 		ft_free_after_split(piece_path);
 		free(piece_path);
-		*old_path = ft_strdup("/");
+		if (!(*old_path = ft_strdup("/")))
+			ft_malloc_error();
 		return ;
 	}
 	ft_strdel(&(piece_path[ft_arrlen(piece_path) - 1]));

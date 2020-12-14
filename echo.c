@@ -6,7 +6,7 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:17:11 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/12/13 15:20:44 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/12/14 16:36:56 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,17 @@ char	*ft_find_var(char *str, t_env *env)
 	{
 		if (!(ft_strcmp(tmp->name, (str + 1))))
 		{
-			var = ft_strdup(tmp->content);
+			if (!(var = ft_strdup(tmp->content)))
+				ft_malloc_error();
 			return (var);
 		}
 		tmp = tmp->next;
 	}
 	if (var == NULL)
-		var = ft_strdup("");
+	{
+		if (!(var = ft_strdup("")))
+			ft_malloc_error();
+	}
 	return (var);
 }
 

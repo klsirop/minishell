@@ -6,7 +6,7 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/29 13:59:35 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/12/13 17:19:44 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/12/14 16:36:15 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ void	ft_change_or_create_var(t_env **env, char *var_name, char *content)
 		if (tmp->content)
 			ft_strdel(&(tmp->content));
 		if (content)
-			tmp->content = ft_strdup(content);
+			if (!(tmp->content = ft_strdup(content)))
+				ft_malloc_error();
 	}
 	else
 	{
@@ -33,7 +34,8 @@ void	ft_change_or_create_var(t_env **env, char *var_name, char *content)
 void	ft_strswap(char **src, char **tmp)
 {
 	ft_strdel(src);
-	*src = ft_strdup(*tmp);
+	if (!(*src = ft_strdup(*tmp)))
+		ft_malloc_error();
 	ft_strdel(tmp);
 }
 

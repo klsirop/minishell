@@ -6,7 +6,7 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 17:19:09 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/12/13 17:44:23 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/12/14 16:41:21 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,10 @@ int		ft_home_path(t_env *env, char **piece_path, char **full_pwd)
 		free(piece_path);
 		return (1);
 	}
-	home = ft_strdup(tmp_env->content);
-	tmp = ft_strdup(home);
+	if (!(home = ft_strdup(tmp_env->content)))
+		ft_malloc_error();
+	if (!(tmp = ft_strdup(home)))
+		ft_malloc_error();
 	ft_strswap(full_pwd, &tmp);
 	ft_strdel(&home);
 	return (0);

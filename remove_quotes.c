@@ -6,7 +6,7 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 16:40:47 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/12/08 21:35:36 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/12/14 16:42:29 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,8 @@ char	*ft_remove_quotes_echo(char *str)
 	if (str[0] != '\'' && str[ft_strlen(str) - 1] != '\'' &&
 		str[0] != '"' && str[ft_strlen(str) - 1] != '"')
 	{
-		new_str = ft_strdup(str);
+		if (!(new_str = ft_strdup(str)))
+			ft_malloc_error();
 		return (new_str);
 	}
 	if (str[0] == '\'' || str[ft_strlen(str) - 1] == '\'')

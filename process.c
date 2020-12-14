@@ -6,7 +6,7 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/29 19:16:13 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/12/13 19:12:20 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/12/14 16:38:32 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ int		ft_exists_in_path(char **new_exe, char **after_substitution,
 	if (!access(*new_exe, 1))
 	{
 		ft_strdel(after_substitution);
-		*after_substitution = ft_strdup(*new_exe);
+		if (!(*after_substitution = ft_strdup(*new_exe)))
+			ft_malloc_error();
 		ft_strdel(new_exe);
 		execve(*after_substitution, command, arr_env);
 	}

@@ -6,7 +6,7 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 17:18:03 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/12/13 17:29:56 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/12/14 16:36:24 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ int		ft_do_cd_help(char **command_parts, t_env **env)
 		tmp = ft_find_in_list(*env, "OLDPWD");
 		if (tmp && tmp->content)
 		{
-			content = ft_strdup(tmp->content);
+			if (!(content = ft_strdup(tmp->content)))
+				ft_malloc_error();
 			ret_code = ft_cd_go_to(env, content);
 			ft_strdel(&content);
 		}

@@ -6,7 +6,7 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 18:01:33 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/12/13 17:54:33 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/12/14 16:42:01 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ void	ft_check_var(t_env *env, char **parts, int i)
 	{
 		tmp = ft_find_var(parts[i], env);
 		ft_strdel(&(parts[i]));
-		parts[i] = ft_strdup(tmp);
+		if (!(parts[i] = ft_strdup(tmp)))
+			ft_malloc_error();
 		ft_strdel(&tmp);
 	}
 }
@@ -84,7 +85,8 @@ void	ft_check_parts(t_env *env, char **parts)
 			env_tmp = ft_find_in_list(env, "HOME");
 			if (env_tmp)
 			{
-				tmp = ft_strdup(env_tmp->content);
+				if (!(tmp = ft_strdup(env_tmp->content)))
+					ft_malloc_error();
 				new_str = ft_concat_path(tmp, parts[i] + 2);
 				ft_strdel(&(parts[i]));
 				ft_strdel(&tmp);
@@ -105,7 +107,8 @@ char	*ft_substitution(char *str, t_env *env)
 		return (NULL);
 	if (!ft_strchr(str, ':') && str[0] != '$' && str[0] != '~')
 	{
-		new_str = ft_strdup(str);
+		if (!(new_str = ft_strdup(str)))
+			ft_malloc_error();
 		return (new_str);
 	}
 	if (str[0] == '$' && !ft_strchr(str, ':'))

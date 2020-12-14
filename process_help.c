@@ -6,7 +6,7 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 19:01:37 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/12/13 19:02:48 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/12/14 16:39:35 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	ft_create_arr_env(char ***arr, t_env *env)
 	t_env	*tmp;
 
 	len = ft_find_list_len(env);
-	(*arr) = (char **)malloc(sizeof(char *) * (len + 1));
+	if (!((*arr) = (char **)malloc(sizeof(char *) * (len + 1))))
+		ft_malloc_error();
 	i = 0;
 	tmp = env;
 	while (i < len)
