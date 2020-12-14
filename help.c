@@ -6,7 +6,7 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 18:18:15 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/12/13 18:06:03 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/12/14 18:59:33 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	ft_do_help_arg(char **command)
 		ft_printf(BLUE_FON "usage:" DROP "\n" BOLD
 					"\thelp " DROP "[command_name]\n");
 	else if (!ft_strcmp(command[1], "cd"))
-		ft_printf(BLUE_FON "usage:" DROP "\n" BOLD "\tcd " DROP "[args]\n");
+		ft_printf(BLUE_FON "usage:" DROP "\n" BOLD "\tcd " DROP "[arg]\n");
 	else if (!ft_strcmp(command[1], "exit"))
 		ft_printf(BLUE_FON "usage:" DROP "\n" BOLD
 						"\texit" DROP " [exit_code]\n");
@@ -48,7 +48,7 @@ void	ft_do_help(char **command)
 		ft_printf("\t" BOLD "unsetenv " DROP "names\n");
 		ft_printf("\t" BOLD "clear" DROP "\n");
 		ft_printf("\t" BOLD "help " DROP "[command_name]\n");
-		ft_printf("\t" BOLD "cd " DROP "[argc]\n");
+		ft_printf("\t" BOLD "cd " DROP "[arg]\n");
 		ft_printf("\t" BOLD "exit" DROP " [exit_code]\n");
 		return ;
 	}

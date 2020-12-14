@@ -6,7 +6,7 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 15:54:39 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/12/13 19:22:41 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/12/14 18:30:07 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ void				ft_malloc_error();
 
 void				ft_free_after_split(char **arr);
 void				ft_free_env(t_env **env);
+void				ft_free_semicolon(char ***semicolon_input);
 
 /*
 ** do_command.c
@@ -180,6 +181,7 @@ char				*ft_concat_path(char *s1, char *s2);
 */
 
 char				*ft_chrtoa_ostssrk(unsigned int chr);
+void				ft_signal();
 
 /*
 ** process.c
@@ -221,5 +223,9 @@ void				ft_print_promt(void);
 
 void				ft_create_arr_env(char ***arr, t_env *env);
 char				*ft_check_path_access(char *command, t_env *env);
+void				ft_file_exists(char **after_substitution, char **command,
+						char ***arr_env);
+int					ft_exists_in_path(char **new_exe, char **after_substitution,
+							char **command, char **arr_env);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: volyvar- <volyvar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 16:44:20 by volyvar-          #+#    #+#             */
-/*   Updated: 2020/12/08 21:27:58 by volyvar-         ###   ########.fr       */
+/*   Updated: 2020/12/14 17:16:38 by volyvar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,14 @@ void	ft_free_env(t_env **env)
 		ft_strdel(&(tmp->name));
 		ft_strdel(&(tmp->content));
 		free(tmp);
+	}
+}
+
+void	ft_free_semicolon(char ***semicolon_input)
+{
+	if (*semicolon_input)
+	{
+		ft_free_after_split(*semicolon_input);
+		free(*semicolon_input);
 	}
 }
